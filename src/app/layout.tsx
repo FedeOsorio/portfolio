@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="es">
 			<head>
-				<script src="https://kit.fontawesome.com/1deb382228.js" crossOrigin="anonymous"></script>
+				<Script src="https://kit.fontawesome.com/1deb382228.js" crossOrigin="anonymous"></Script>
 			</head>
 			<body className={inter.className}>
 				<Header />
