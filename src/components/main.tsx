@@ -9,7 +9,7 @@ const Main = () => {
 					<h1 className="title-font lg:text-4xl md:text-3xl sm:text-2xl text-xl mb-4 font-medium text-white">
 						Hola, soy ¡Federico Osorio!
 					</h1>
-					<p className="mb-8 leading-relaxed">
+					<p className="mb-8 leading-relaxed text-justify">
 						Soy Desarrollador Full-Stack con una sólida base de más de 6 años en el sector IT, y 3 años de experiencia en Desarrollo Web. Mi objetivo es construir productos digitales que sean eficientes, 
 						escalables, y ofrezcan una gran experiencia de usuario.
 						<br></br>
