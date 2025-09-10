@@ -10,8 +10,12 @@ const Main = () => {
 						Hola, soy ¡Federico Osorio!
 					</h1>
 					<p className="mb-8 leading-relaxed">
-						Soy de Buenos Aires, Argentina, tengo 28 años y cuento con más de 6 años de experiencia en el rubro IT. <br /> Hace 2 años
-						ingresé en el mundo de la programación y actualmente me desempeño como desarrollador fullstack en ASJ-Servicios.
+						Soy Desarrollador Full-Stack con una sólida base de más de 6 años en el sector IT, y 3 años de experiencia en Desarrollo Web. Mi objetivo es construir productos digitales que sean eficientes, 
+						escalables, y ofrezcan una gran experiencia de usuario.
+						<br></br>
+						Me especializo en el stack Angular y Spring-Boot, complementado con Oracle BPM 12. Y adicionalmente, desarrollo proyectos en React y Node.js, además de proyectos en React Native para el mundo mobile.
+						<br></br>
+						Actualmente formo parte del equipo de ASJ Servicios, donde contribuyo al desarrollo de aplicativos web para los Bancos San Juan, Entre Ríos, Santa Fe y Santa Cruz.
 					</p>
 					<div className="flex justify-center">
 						<div>
