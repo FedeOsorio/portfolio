@@ -4,12 +4,12 @@ import React, { useRef } from "react";
 const Projects = () => {
   return (
     <section
-      id="projectsID"
+
       className="text-gray-400 body-font bg-gradient-to-b from-sky-950 via-sky-950 to-teal-900 flex"
     >
       <div className="container mx-auto px-5 py-10 mt-12">
         <div className="mb-10 text-center">
-          <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">
+          <h1 id="projectsID" className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">
             Mis Proyectos
           </h1>
           <div className="h-1 w-20 bg-blue-500 mx-auto rounded"></div>
