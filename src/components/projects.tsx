@@ -3,8 +3,7 @@ import React, { useRef } from "react";
 
 const Projects = () => {
   return (
-    <section
-
+    <section id="projectsID" 
       className="text-gray-400 body-font bg-gradient-to-b from-sky-950 via-sky-950 to-teal-900 flex"
     >
       <div className="container mx-auto px-5 py-10 mt-12">
@@ -14,7 +13,7 @@ const Projects = () => {
           </h1>
           <div className="h-1 w-20 bg-blue-500 mx-auto rounded"></div>
         </div>
-        <div id="projectsID" className="flex flex-wrap -m-4">
+        <div className="flex flex-wrap -m-4">
 			<div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
             <a href="https://ifts26.netlify.app/" target="_blank">
               <div className="bg-gray-800 bg-opacity-40 p-6 rounded-lg cursor-pointer hover:scale-110 ease-out duration-200 min-h-full">
