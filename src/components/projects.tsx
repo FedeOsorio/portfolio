@@ -3,8 +3,7 @@ import React, { useRef } from "react";
 
 const Projects = () => {
   return (
-    <section
-      id="projectsID"
+    <section id="projectsID" 
       className="text-gray-400 body-font bg-gradient-to-b from-sky-950 via-sky-950 to-teal-900 flex"
     >
       <div className="container mx-auto px-5 py-10 mt-12">
