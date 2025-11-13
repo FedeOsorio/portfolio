@@ -19,7 +19,7 @@ const Header = () => {
 
 	const scrollToElement = (elementRef: any) => {
 		if (elementRef.current) {
-			elementRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+			elementRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
 		}
 	};
 

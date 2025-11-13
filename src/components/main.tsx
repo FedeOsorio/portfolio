@@ -3,7 +3,7 @@ import React from "react";
 
 const Main = () => {
 	return (
-		<section id="mainID" className="flex content-center text-gray-400 bg-gradient-to-b from-slate-950 via-blue-950 to-blue-950 body-font">
+		<section id="mainID" className="flex mainContainer content-center text-gray-400 bg-gradient-to-b from-slate-950 via-blue-950 to-blue-950 body-font">
 			<div className="container mx-auto flex px-5 py-32 mt-18 lg:mt-0 md:flex-row flex-col items-center -mt-14">
 				<div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
 					<h1 className="title-font lg:text-4xl md:text-3xl sm:text-2xl text-xl mb-4 font-medium text-white">

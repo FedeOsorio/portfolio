@@ -4,15 +4,14 @@ const Skills = () => {
 	return (
 		<section
 			id="skillsID"
-			className="text-gray-400 bg-gradient-to-b from-blue-950 via-blue-950 to-sky-950 body-font flex h-screen"
-		>
-			<div className="container my-auto mx-auto flex flex-row justify-start flex-wrap">
-				<div className="flex w-3/4 mt-8 mb-10 flex-col text-white">
+			className="text-gray-400 bg-gradient-to-b from-blue-950 via-blue-950 to-sky-950 body-font flex h-screen">
+			<div className="container mx-auto flex flex-row justify-start flex-wrap">
+				<div className="flex w-3/4 my-auto flex-col text-white">
 					<h1 className="mx-auto sm:text-3xl text-2xl font-medium text-center title-font text-white lg:w-1/3 lg:mb-0 mb-4 text-center">
 						MAIN STACK
 					</h1>
 					<div className="flex flex-wrap mt-6 justify-center w-full gap-x-8 gap-y-6">
-						<div className="flex flex-col items-center w-32 md:p-2 p-1">
+						<div className="flex flex-col items-center w-32 md:p-2 p-1 tech-item transition duration-300 ease-in-out hover:scale-115">
 							<span>Angular</span>
 							<img
 								alt="gallery"
@@ -20,15 +19,7 @@ const Skills = () => {
 								src="img/angular.png"
 							/>
 						</div>
-						<div className="flex flex-col items-center w-32 md:p-2 p-1">
-							<span>CSS / SCSS</span>
-							<img
-								alt="gallery"
-								className="h-20 mt-1 object-contain"
-								src="img/css-3.png"
-							/>
-						</div>
-						<div className="flex flex-col items-center w-32 md:p-2 p-1">
+						<div className="flex flex-col items-center w-32 md:p-2 p-1 transition duration-300 ease-in-out hover:scale-115">
 							<span>Spring Boot</span>
 							<img
 								alt="gallery"
@@ -36,7 +27,7 @@ const Skills = () => {
 								src="img/spring.png"
 							/>
 						</div>
-						<div className="flex flex-col items-center w-32 md:p-2 p-1">
+						<div className="flex flex-col items-center w-32 md:p-2 p-1 transition duration-300 ease-in-out hover:scale-115">
 							<span>PostgreSQL</span>
 							<img
 								alt="gallery"
@@ -44,7 +35,7 @@ const Skills = () => {
 								src="img/sql.png"
 							/>
 						</div>
-						<div className="flex flex-col items-center w-32 md:p-2 p-1">
+						<div className="flex flex-col items-center w-32 md:p-2 p-1 transition duration-300 ease-in-out hover:scale-115">
 							<span>Oracle BPM</span>
 							<img
 								alt="gallery"
@@ -54,11 +45,11 @@ const Skills = () => {
 						</div>
 					</div>
 					<div className="flex flex-col flex-wrap w-full mt-10">
-						<h3 className="mx-auto sm:text-2xl font-medium text-center title-font text-white lg:mb-0 mb-4 text-center">
+						<h3 className="mx-auto sm:text-3xl font-medium text-center title-font text-white lg:mb-0 mb-4 text-center">
 							MERN
 						</h3>
 						<div className="flex justify-center text-white mt-2 gap-x-8">
-							<div className="md:p-2 p-1 flex flex-col items-center">
+							<div className="md:p-2 p-1 flex flex-col items-center transition duration-300 ease-in-out hover:scale-115">
 								<span>MongoDB</span>
 								<img
 									alt="gallery"
@@ -66,7 +57,7 @@ const Skills = () => {
 									src="img/mongodb.png"
 								/>
 							</div>
-							<div className="md:p-2 p-1 flex flex-col items-center w-28">
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
 								<span>Express</span>
 								<img
 									alt="gallery"
@@ -74,7 +65,7 @@ const Skills = () => {
 									src="img/express.png"
 								/>
 							</div>
-							<div className="md:p-2 p-1 flex flex-col items-center w-28">
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
 								<span>React</span>
 								<img
 									alt="gallery"
@@ -82,7 +73,7 @@ const Skills = () => {
 									src="img/atom.png"
 								/>
 							</div>
-							<div className="md:p-2 p-1 flex flex-col items-center w-28">
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
 								<span>NodeJS</span>
 								<img
 									alt="gallery"
@@ -98,7 +89,7 @@ const Skills = () => {
 							Habilidades complementarias
 						</h3>
 						<div className="flex justify-center text-white mt-2 gap-x-8">
-							<div className="md:p-2 p-1 flex flex-col items-center w-28">
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
 								<span>TypeScript</span>
 								<img
 									alt="gallery"
@@ -106,7 +97,15 @@ const Skills = () => {
 									src="img/typescript.png"
 								/>
 							</div>
-							<div className="md:p-2 p-1 flex flex-col items-center w-28">
+							<div className="flex flex-col items-center w-32 md:p-2 p-1 transition duration-300 ease-in-out hover:scale-115">
+								<span>CSS / SCSS</span>
+								<img
+									alt="gallery"
+									className="h-16 mt-1 object-contain"
+									src="img/css-3.png"
+								/>
+							</div>
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
 								<span>React Native</span>
 								<img
 									alt="gallery"
@@ -114,7 +113,7 @@ const Skills = () => {
 									src="img/native.png"
 								/>
 							</div>
-							<div className="md:p-2 p-1 flex flex-col items-center w-28">
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
 								<span>NextJS</span>
 								<img
 									alt="gallery"
@@ -122,7 +121,7 @@ const Skills = () => {
 									src="img/nextjs.png"
 								/>
 							</div>
-							<div className="md:p-2 p-1 flex flex-col items-center w-28">
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
 								<span>Tailwind</span>
 								<img
 									alt="gallery"
@@ -130,14 +129,22 @@ const Skills = () => {
 									src="img/tailwind.png"
 								/>
 							</div>
+							<div className="md:p-2 p-1 flex flex-col items-center w-28 transition duration-300 ease-in-out hover:scale-115">
+								<span>Figma</span>
+								<img
+									alt="gallery"
+									className="h-14 mt-2 object-contain"
+									src="img/figma.png"
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col items-center sm:w-1/4 h-200 text-white mt-6">
-					<h2 className="mx-auto sm:mt-4 text-2xl font-medium text-center title-font text-white lg:mb-0 mb-4 text-center">
+				<div className="flex flex-col my-auto items-center sm:w-1/4 text-white">
+					<h2 className="mx-auto text-2xl font-medium text-center title-font text-white lg:mb-0 text-center">
 						Herramientas
 					</h2>
-					<div className="md:p-2 p-1 flex flex-col items-center">
+					<div className="md:p-2 p-1 flex flex-col items-center transition duration-300 ease-in-out hover:scale-115">
 						<span className="mb-1">Git</span>
 						<img
 							alt="gallery"
@@ -145,7 +152,7 @@ const Skills = () => {
 							src="img/git2.png"
 						/>
 					</div>
-					<div className="md:p-2 p-1 flex flex-col items-center">
+					<div className="md:p-2 p-1 flex flex-col items-center transition duration-300 ease-in-out hover:scale-115">
 						<span className="mb-1">GitHub</span>
 						<img
 							alt="gallery"
@@ -153,7 +160,7 @@ const Skills = () => {
 							src="img/github.png"
 						/>
 					</div>
-					<div className="md:p-2 p-1 flex flex-col items-center">
+					<div className="md:p-2 p-1 flex flex-col items-center transition duration-300 ease-in-out hover:scale-115">
 						<span className="mb-1">Jira</span>
 						<img
 							alt="gallery"
@@ -161,7 +168,15 @@ const Skills = () => {
 							src="img/jira.png"
 						></img>
 					</div>
-					<div className="md:p-2 p-1 flex flex-col items-center">
+					<div className="md:p-2 p-1 flex flex-col items-center transition duration-300 ease-in-out hover:scale-115">
+						<span className="mb-1">Postman</span>
+						<img
+							alt="gallery"
+							className="h-16 w-16 object-contain"
+							src="img/postman.png"
+						></img>
+					</div>
+					<div className="md:p-2 p-1 flex flex-col items-center transition duration-300 ease-in-out hover:scale-115">
 						<span className="mb-1">Docker</span>
 						<img
 							alt="gallery"
