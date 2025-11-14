@@ -1,58 +1,111 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import { useScrollPosition } from "@/hooks/useScrollPosition";
+import React, { useEffect, useRef, useState } from "react";
+
+const useScrollPosition = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return scrollPosition;
+};
 
 const Header = () => {
-	const scrollPosition = useScrollPosition();
-	const mainScrollRef = useRef<HTMLElement | null>(null);
-	const skillScrollRef = useRef<HTMLElement | null>(null);
-	const projectScrollRef = useRef<HTMLElement | null>(null);
-	const contactScrollRef = useRef<HTMLElement | null>(null);
+    const scrollPosition = useScrollPosition();
+    const mainScrollRef = useRef<HTMLElement | null>(null);
+    const skillScrollRef = useRef<HTMLElement | null>(null);
+    const projectScrollRef = useRef<HTMLElement | null>(null);
+    const contactScrollRef = useRef<HTMLElement | null>(null);
 
-	useEffect(() => {
-		// Comprueba si estamos en el lado del cliente antes de acceder a document
-		mainScrollRef.current = document.querySelector("#mainID");
-		skillScrollRef.current = document.querySelector("#skillsID");
-		projectScrollRef.current = document.querySelector("#projectsID");
-		contactScrollRef.current = document.querySelector("#contactID");
-	}, []);
+    // Estado para manejar el menú móvil
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-	const scrollToElement = (elementRef: any) => {
-		if (elementRef.current) {
-			elementRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-		}
-	};
+    useEffect(() => {
+        // Comprueba si estamos en el lado del cliente antes de acceder a document
+        mainScrollRef.current = document.querySelector("#mainID");
+        skillScrollRef.current = document.querySelector("#skillsID");
+        projectScrollRef.current = document.querySelector("#projectsID");
+        contactScrollRef.current = document.querySelector("#contactID");
+    }, []);
 
-	return (
-		<header
-			className={`sticky top-0 z-50 transition-shadow  ${
-				scrollPosition > 1 ? "shadow bg-opacity-70 backdrop-blur-lg backdrop-filter " : "shadow-none bg-slate-950 "
-			}`}>
-			<div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-				<a className="flex title-font font-medium items-center text-white mb-4 md:mb-0">
-					<h2 className="rounded-xl text-4xl">FO</h2>
-					<div className="flex flex-col">
-						<span className="ml-3 text-xl leading-6">Federico</span>
-						<span className="ml-3 text-xl leading-6">Osorio</span>
-					</div>
-				</a>
-				<div className="mx-auto text-2xl font-medium h-10 align-center flex items-center">Desarrollador Full-Stack</div>
-				<nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-					<a className="mr-5 hover:text-white cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-						Inicio
-					</a>
-					<a className="mr-5 hover:text-white cursor-pointer" onClick={() => scrollToElement(skillScrollRef)}>
-						Habilidades
-					</a>
-					<a className="mr-5 hover:text-white cursor-pointer" onClick={() => scrollToElement(projectScrollRef)}>
-						Proyectos
-					</a>
-					<a className="mr-5 hover:text-white cursor-pointer" onClick={() => scrollToElement(contactScrollRef)}>
-						Contacto
-					</a>
-				</nav>
-			</div>
-		</header>
-	);
+    const scrollToElement = (elementRef: React.RefObject<HTMLElement>) => {
+        if (elementRef.current) {
+            elementRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        // Cierra el menú después de hacer clic
+        setIsMenuOpen(false);
+    };
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setIsMenuOpen(false);
+    };
+
+    return (
+        <header
+            className={`sticky top-0 z-50 transition-shadow 
+            ${scrollPosition > 1 ? "shadow bg-opacity-70 backdrop-blur-lg backdrop-filter " : "shadow-none bg-slate-950 "}`}>
+            <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center header-container">
+                {/* Logo */}
+                <a className="flex title-font font-medium items-center text-white mb-4 md:mb-0 header-logo">
+                    <h2 className="rounded-xl text-4xl">FO</h2>
+                    <div className="flex flex-col">
+                        <span className="ml-3 text-xl leading-6">Federico</span>
+                        <span className="ml-3 text-xl leading-6">Osorio</span>
+                    </div>
+                </a>
+                
+                {/* Título - Se ocultará en móvil con CSS */}
+                <div className="mx-auto text-2xl font-medium h-10 align-center flex items-center header-title">Desarrollador Full-Stack</div>
+
+                {/* Botón de Hamburguesa */}
+                <button
+                    className="hamburger-menu"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Abrir menú"
+                >
+                    {isMenuOpen ? (
+                        // Icono de "X" (cerrar)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="hamburger-icon">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    ) : (
+                        // Icono de "Hamburguesa" (abrir)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="hamburger-icon">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    )}
+                </button>
+                {isMenuOpen && (
+                    <div 
+                        className="nav-overlay" 
+                        onClick={() => setIsMenuOpen(false)}
+                    ></div>
+                )}
+
+                <nav className={` flex flex-wrap header-nav ${isMenuOpen ? "is-open" : ""}`}>
+                    <a className="lg:ml-40 hover:text-white cursor-pointer nav-link" onClick={scrollToTop}>
+                        Inicio
+                    </a>
+                    <a className="lg:ml-5 hover:text-white cursor-pointer nav-link" onClick={() => scrollToElement(skillScrollRef)}>
+                        Habilidades
+                    </a>
+                    <a className="lg:ml-5 hover:text-white cursor-pointer nav-link" onClick={() => scrollToElement(projectScrollRef)}>
+                        Proyectos
+                    </a>
+                    <a className="lg:ml-5 hover:text-white cursor-pointer nav-link" onClick={() => scrollToElement(contactScrollRef)}>
+                        Contacto
+                    </a>
+                </nav>
+            </div>
+        </header>
+    );
 };
 export default Header;

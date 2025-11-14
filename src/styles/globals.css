@@ -2,10 +2,8 @@
 
 @theme {
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
-  --background-image-gradient-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    var(--tw-gradient-stops)
-  );
+  --background-image-gradient-conic: conic-gradient(from 180deg at 50% 50%,
+      var(--tw-gradient-stops));
 }
 
 /*
@@ -17,6 +15,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -48,22 +47,113 @@ body {
   background: #020617;
 }
 
-.mainContainer{
+.mainContainer {
   height: calc(100vh - 88px);
 }
 
-/* #mainID{
-  height: calc(100vh - 88px);
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: white;
+  z-index: 101;
 }
 
-#skillsID{
-  height: 100vh;
+.hamburger-icon {
+  width: 2rem;
+  height: 2rem;
 }
 
-#projectsID{
-  height: calc(100vh - 20px);
+.nav-overlay {
+  display: none;
 }
 
-#contactID{
-  height: calc(100vh - 162px);
-} */
+/* Estilos para móvil (max-width: 640px) */
+@media (max-width: 640px) {
+  .header-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-logo {
+    margin-bottom: 0;
+  }
+
+  .header-title {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+
+  /* Estilos de la barra de navegación en móvil */
+  .header-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #020617;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 5rem 2rem 2rem 2rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+  }
+
+  .header-nav.is-open {
+    display: flex;
+    transform: translateX(0);
+  }
+
+  /* Estilos de los links dentro del menú móvil */
+  .header-nav .nav-link {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .nav-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+  }
+
+  .main-text-block-mobile {
+    margin-bottom: 2.5rem;
+  }
+
+  .skills-main-column-mobile {
+    width: 100%;
+    margin: 0;
+    order: 1;
+  }
+
+  .skills-tools-column-mobile {
+    width: 100%;
+    margin: 0;
+    margin-top: 4rem;
+    order: 2;
+    gap: 1rem;
+  }
+
+  .skills-section-mobile {
+    padding-top: 6rem;
+  }
+
+
+}

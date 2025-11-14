@@ -9,14 +9,13 @@ const Contact = () => {
 					<h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Contacto</h1>
 					<p className="lg:w-2/3 mx-auto leading-relaxed text-base">
 						¡Podés enviarme un correo a {""}
-						<a className="text-blue-400" href="mailto: fedee.osorio@gmail.com">
+						<a className="text-blue-400" href="mailto:fedee.osorio@gmail.com">
 							fedee.osorio@gmail.com
 						</a>
 						{""} o encontrarme a través de mi LinkedIn!
 					</p>
 				</div>
 				<div className="text-center text-gray-200 mb-28">
-					{/* <i className="fa-brands fa-instagram"></i> */}
 					<a href="https://www.linkedin.com/in/fedeosorio/" target="_blank">
 						<i className="fa-brands fa-linkedin text-5xl fa-beat-fade"></i>
 					</a>
