@@ -47,8 +47,10 @@ body {
   background: #020617;
 }
 
-.mainContainer {
-  height: calc(100vh - 88px);
+@media (min-width: 1024px) {
+  .mainContainer {
+    height: calc(100vh - 88px);
+  }
 }
 
 .hamburger-menu {

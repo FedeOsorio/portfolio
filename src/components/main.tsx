@@ -3,8 +3,8 @@ import React from "react";
 
 const Main = () => {
     return (
-        <section id="mainID" className="flex lg:mainContainer content-center text-gray-400 bg-gradient-to-b from-slate-950 via-blue-950 to-blue-950 body-font sm:height-100">
-            <div className="container mx-auto flex px-5 lg:py-32 lg:mt-18 mt-0 lg:flex-row flex-col-reverse items-center lg:-mt-14 main-container-mobile">
+        <section id="mainID" className="flex mainContainer content-center text-gray-400 bg-gradient-to-b from-slate-950 via-blue-950 to-blue-950 body-font">
+            <div className="container mx-auto flex px-5 lg:flex-row flex-col-reverse items-center main-container-mobile">
                 <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center main-text-block-mobile">
                     <h1 className="title-font lg:text-4xl md:text-3xl sm:text-2xl text-xl mb-4 font-medium text-white">
                         Hola, soy ¡Federico Osorio!
