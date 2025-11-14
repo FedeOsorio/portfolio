@@ -23,12 +23,9 @@ const Header = () => {
     const skillScrollRef = useRef<HTMLElement | null>(null);
     const projectScrollRef = useRef<HTMLElement | null>(null);
     const contactScrollRef = useRef<HTMLElement | null>(null);
-
-    // Estado para manejar el menú móvil
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
-        // Comprueba si estamos en el lado del cliente antes de acceder a document
         mainScrollRef.current = document.querySelector("#mainID");
         skillScrollRef.current = document.querySelector("#skillsID");
         projectScrollRef.current = document.querySelector("#projectsID");
@@ -39,7 +36,6 @@ const Header = () => {
         if (elementRef.current) {
             elementRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-        // Cierra el menú después de hacer clic
         setIsMenuOpen(false);
     };
 
@@ -53,7 +49,6 @@ const Header = () => {
             className={`sticky top-0 z-50 transition-shadow 
             ${scrollPosition > 1 ? "shadow bg-opacity-70 backdrop-blur-lg backdrop-filter " : "shadow-none bg-slate-950 "}`}>
             <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center header-container">
-                {/* Logo */}
                 <a className="flex title-font font-medium items-center text-white mb-4 md:mb-0 header-logo">
                     <h2 className="rounded-xl text-4xl">FO</h2>
                     <div className="flex flex-col">
@@ -64,20 +59,16 @@ const Header = () => {
                 
                 {/* Título - Se ocultará en móvil con CSS */}
                 <div className="mx-auto text-2xl font-medium h-10 align-center flex items-center header-title">Desarrollador Full-Stack</div>
-
-                {/* Botón de Hamburguesa */}
                 <button
                     className="hamburger-menu"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label="Abrir menú"
                 >
                     {isMenuOpen ? (
-                        // Icono de "X" (cerrar)
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="hamburger-icon">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     ) : (
-                        // Icono de "Hamburguesa" (abrir)
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="hamburger-icon">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
