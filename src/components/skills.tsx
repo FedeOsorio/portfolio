@@ -100,9 +100,9 @@ const Skills = () => {
                         </div>
                         <div className="md:p-2 p-1 flex flex-col items-center w-32 lg:w-auto transition duration-300 ease-in-out hover:scale-115">
                             <span className="mb-1">Postman</span>
-                            <img alt="gallery" className="h-16 w-16 object-contain" src="img/postman.png"></img>
+                            <img alt="gallery" className="h-16 w-16 object-contain" src="img/postman-logo.png"></img>
                         </div>
-                        <div className="md:p-2 p-1 flex flex-col items-center w-32 lg:w-auto transition duration-300 ease-in-out hover:scale-115">
+                        <div className="md:p-2 p-1 flex flex-col items-center w-32 lg:w-auto transition duration-300 esase-in-out hover:scale-115">
                             <span className="mb-1">Docker</span>
                             <img alt="gallery" className="h-14 object-contain" src="img/docker.png"></img>
                         </div>
