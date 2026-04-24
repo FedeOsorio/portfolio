@@ -5,7 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const projectsData = [
   {
-    image: "img/kanjiLove.jpg",
+    image: "img/kanjilove.jpg",
     link: "https://play.google.com/store/apps/details?id=com.kuyi.kanjilove",
     subtitle: "React Native - Expo - Firebase",
   },
