@@ -1,9 +1,12 @@
 "use client";
 import React from "react";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 const Footer = () => {
+	const { t } = useLanguage();
 	return (
-		<footer className="text-gray-400 bg-slate-950 body-font">
+		<footer className="text-gray-400 bg-transparent body-font border-t border-white/5">
 			<div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
 				<a className="flex title-font font-medium items-center md:justify-start justify-center text-white">
 					<h2 className="rounded-xl text-4xl">FO</h2>
@@ -13,7 +16,7 @@ const Footer = () => {
 					</div>
 				</a>
 				<p className="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">
-					© 2025 - Hecho con NextJS y Tailwind
+					© 2026 - {t("footer.madeWith")}
 				</p>
 				<span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
 					<div className="h-10">

@@ -1,29 +1,30 @@
 "use client";
-import React from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Contact = () => {
-	return (
-		<section id="contactID" className="text-gray-400 bg-gray-900 body-font bg-gradient-to-b from-teal-900 via-blue-950 to-slate-950 ">
-			<div className="container px-5 py-24 mx-auto">
-				<div className="flex flex-col text-center w-full mb-5">
-					<h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Contacto</h1>
-					<p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-						¡Podés enviarme un correo a {""}
-						<a className="text-blue-400" href="mailto:fedee.osorio@gmail.com">
-							fedee.osorio@gmail.com
-						</a>
-						{""} o encontrarme a través de mi LinkedIn!
-					</p>
-				</div>
-				<div className="text-center text-gray-200 mb-28">
-					<a href="https://www.linkedin.com/in/fedeosorio/" target="_blank">
-						<i className="fa-brands fa-linkedin text-5xl fa-beat-fade"></i>
-					</a>
-				</div>
-				<div className="p-2 w-full pt-8 mt-8 border-t border-gray-800 text-center"></div>
-			</div>
-		</section>
-	);
+  const { t } = useLanguage();
+  return (
+    <section id="contactID" className="py-48 min-h-[70vh] flex items-center relative overflow-hidden">
+      <div className="container px-6 mx-auto relative z-10">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t("contact.title")}</h2>
+          <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+            {t("contact.subtitle")}
+          </p>
+          
+          <div className="flex justify-center items-center">
+            <a 
+              href="https://www.linkedin.com/in/fedeosorio/" 
+              target="_blank"
+              className="group relative p-4 bg-slate-900/50 rounded-2xl border border-slate-800 hover:border-blue-500/50 transition-all duration-300"
+            >
+              <i className="fa-brands fa-linkedin text-5xl text-blue-400 group-hover:scale-110 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Contact;

@@ -5,11 +5,13 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Script from "next/script";
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "FO - Portfolio",
-	description: "Portafolio de Osorio Federico",
+	title: "Federico Osorio | Software Developer",
+	description: "Software Developer especializado en Backend con dominio de Frontend y arquitectura de sistemas.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -19,9 +21,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<Script src="https://kit.fontawesome.com/1deb382228.js" crossOrigin="anonymous"></Script>
 			</head>
 			<body className={inter.className}>
-				<Header />
-				{children}
-				<Footer />
+				<LanguageProvider>
+					<Header />
+					{children}
+					<Footer />
+				</LanguageProvider>
 			</body>
 		</html>
 	);

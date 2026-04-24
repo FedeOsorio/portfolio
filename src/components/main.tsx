@@ -1,45 +1,103 @@
 "use client";
 import React from "react";
+import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
+
+const skills = [
+  { name: "Java", type: "purple" },
+  { name: "Spring Boot", type: "purple" },
+  { name: "Node.js", type: "purple" },
+  { name: "Prisma", type: "purple" },
+  { name: "TypeScript", type: "teal" },
+  { name: "Angular", type: "teal" },
+  { name: "React.js", type: "teal" },
+  { name: "React Native", type: "teal" },
+
+  { name: "Next.js", type: "neutral" },
+  { name: "LLM Integration", type: "neutral" },
+  { name: "AI Agents", type: "neutral" },
+  { name: "Kafka", type: "neutral" },
+  { name: "RabbitMQ", type: "neutral" },
+  { name: "Redis", type: "neutral" },
+  { name: "PostgreSQL", type: "neutral" },
+  { name: "MongoDB", type: "neutral" },
+  { name: "Docker", type: "neutral" },
+  { name: "Unix", type: "neutral" },
+  { name: "Git", type: "neutral" },
+];
 
 const Main = () => {
-    return (
-        <section id="mainID" className="flex mainContainer content-center text-gray-400 bg-gradient-to-b from-slate-950 via-blue-950 to-blue-950 body-font">
-            <div className="container mx-auto flex px-5 lg:flex-row flex-col-reverse items-center main-container-mobile">
-                <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center main-text-block-mobile">
-                    <h1 className="title-font lg:text-4xl md:text-3xl sm:text-2xl text-xl mb-4 font-medium text-white">
-                        Hola, soy ¡Federico Osorio!
-                    </h1>
-                    <p className="mb-8 leading-relaxed text-justify main-paragraph-mobile">
-                        Soy Desarrollador Full-Stack con una sólida base de más de 6 años en el sector IT, y además 3 años de experiencia en Desarrollo Web. Mi objetivo es construir productos digitales que sean eficientes, 
-                        escalables y ofrezcan una gran experiencia de usuario.
-                        <br></br>
-                        Me especializo en <strong>Angular</strong> y <strong>Spring-Boot</strong>, complementado con Oracle BPM 12. Paralelamente, desarrollo proyectos en <strong>React</strong>, <strong>Node.js</strong> y <strong>React Native</strong> para el mundo mobile.
-                        <br></br>
-                        Actualmente formo parte del equipo de ASJ Servicios, donde contribuyo al desarrollo de aplicativos web para los Bancos San Juan, Entre Ríos, Santa Fe y Santa Cruz.
-                    </p>
-                    <div className="flex justify-center">
-                        <div>
-                            <a href="https://github.com/FedeOsorio" target="_blank">
-                                <button className="inline-flex text-gray-100 h-12 bg-gray-800 border-0 items-center px-5 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">
-                                    <i className="fa-brands fa-github fa-2xl" />
-                                </button>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="https://www.linkedin.com/in/fedeosorio/" target="_blank">
-                                <button className="ml-4 inline-flex text-gray-100 h-12 bg-gray-800 border-0 items-center px-5 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">
-                                    <i className="fa-brands fa-linkedin fa-2xl" />
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 sm:w-full">
-                    <img className="object-cover object-center rounded" alt="hero" src="img/profile.png" />
-                </div>
+  const { t } = useLanguage();
+  const getPillClass = (type: string) => {
+    switch (type) {
+      case "purple":
+        return "bg-purple-500/10 text-purple-400 border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.1)]";
+      case "teal":
+        return "bg-teal-500/10 text-teal-400 border-teal-500/20 shadow-[0_0_15px_rgba(20,184,166,0.1)]";
+      default:
+        return "bg-slate-800/40 text-slate-400 border-slate-700/50";
+    }
+  };
+
+  return (
+    <section id="mainID" className="relative min-h-[calc(100vh-88px)] flex items-center justify-center overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-5xl mx-auto text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <p className="text-purple-400 font-bold tracking-[0.3em] uppercase text-xl mb-4">Federico Osorio</p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-8 tracking-tight">
+              Software <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">Developer</span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-10 max-w-3xl mx-auto font-light">
+              {t("main.specialization")}
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-6 mb-16">
+              <a href="https://github.com/FedeOsorio" target="_blank" className="flex items-center gap-2 px-6 py-3 bg-slate-800/40 hover:bg-slate-700/60 text-white rounded-full transition-all border border-slate-700/50 hover:border-purple-500/50">
+                <i className="fa-brands fa-github text-xl" />
+                <span className="font-medium">GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/fedeosorio/" target="_blank" className="flex items-center gap-2 px-6 py-3 bg-slate-800/40 hover:bg-slate-700/60 text-white rounded-full transition-all border border-slate-700/50 hover:border-teal-500/50">
+                <i className="fa-brands fa-linkedin text-xl" />
+                <span className="font-medium">LinkedIn</span>
+              </a>
             </div>
-        </section>
-    );
+
+            <div className="space-y-6">
+              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
+                {t("main.techStack")}
+              </h3>
+              <div className="grid grid-cols-4 gap-2 md:flex md:flex-wrap md:justify-center md:gap-3">
+                {skills.map((skill, index) => (
+                  <motion.span
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.2 + (index * 0.05),
+                      scale: { type: "spring", stiffness: 300, damping: 10 }
+                    }}
+                    className={`flex items-center justify-center text-center font-semibold border shadow-sm cursor-default transition-colors ${getPillClass(skill.type)}
+                      h-10 text-[9px] rounded-lg
+                      md:h-auto md:w-auto md:px-4 md:py-1.5 md:text-sm md:rounded-full`}
+                  >
+                    {skill.name}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Main;

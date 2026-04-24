@@ -41,10 +41,14 @@
   }
 }
 
-body {
+html, body {
   box-sizing: border-box;
   color: rgb(var(--foreground-rgb));
-  background: #020617;
+  background: linear-gradient(to bottom, #0f172a 0%, #020617 50%, #010409 100%) !important;
+  background-attachment: scroll !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  min-height: 100vh;
 }
 
 @media (min-width: 1024px) {
