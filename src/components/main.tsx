@@ -53,7 +53,7 @@ const Main = () => {
               Full Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">Developer</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-10 max-w-3xl mx-auto font-light">
+            <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-10 max-w-4xl mx-auto font-light">
               {t("main.specialization")}
             </p>
 
