@@ -58,15 +58,15 @@ const Projects = () => {
 
   return (
     <section id="projectsID" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10 mt-2">
+      <div className="container mx-auto px-6 relative z-10 mt-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="text-center mb-5"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t("projects.title")}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{t("projects.title")}</h2>
           <div className="h-1.5 w-24 bg-gradient-to-r from-purple-500 to-teal-500 mx-auto rounded-full"></div>
         </motion.div>
 

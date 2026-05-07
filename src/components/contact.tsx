@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const Contact = () => {
   const { t } = useLanguage();
   return (
-    <section id="contactID" className="py-48 min-h-[70vh] flex items-center relative overflow-hidden">
+    <section id="contactID" className="py-48 min-h-[79vh] flex items-center relative overflow-hidden">
       <div className="container px-6 mx-auto relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t("contact.title")}</h2>
