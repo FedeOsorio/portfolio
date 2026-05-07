@@ -59,7 +59,7 @@ const Header = () => {
 
                 <div className="mx-auto text-2xl font-medium align-center flex items-center header-title">
                     <span>
-                        Software <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">Developer</span>
+                        Full Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">Developer</span>
                     </span>
                 </div>
                 <button
