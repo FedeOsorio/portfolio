@@ -18,7 +18,7 @@ const translations = {
     },
     main: {
       role: "Full Stack Developer",
-      specialization: "Desarrollador Backend con visión Full Stack, especializado en sistemas escalables, rendimiento y desarrollo de aplicaciones modernas.",
+      specialization: "Desarrollador con visión Full Stack, especializado en sistemas escalables, rendimiento y desarrollo de aplicaciones modernas.",
       techStack: "Tech Stack",
     },
     projects: {
@@ -80,7 +80,7 @@ const translations = {
     },
     main: {
       role: "Full Stack Developer",
-      specialization: "Backend Developer with a Full Stack mindset, specialized in scalable systems, performance, and modern application development.",
+      specialization: "Developer with a Full Stack mindset, specialized in scalable systems, performance, and modern application development.",
       techStack: "Tech Stack",
     },
     projects: {
