@@ -187,6 +187,7 @@ const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
     ? (currentProject.images || (currentProject.image ? [currentProject.image] : []))
     : [];
   const currentImage = currentImages[innerImageIndex] || "";
+  const isMobileProject = currentProject ? isMobileApp(currentProject.subtitle) : false;
 
   // Autoplay inner images slideshow (resets on manual selection or arrow click)
   useEffect(() => {
@@ -375,8 +376,8 @@ const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
                     transition={{ duration: 0.35, ease: "easeOut" }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    {/* Unified widescreen screenshot container (no forced phone shape) */}
-                    <div className="w-full h-full rounded-2xl border border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative bg-slate-950 mx-auto">
+                    {/* Unified widescreen screenshot container (no forced phone shape, no background/border container) */}
+                    <div className="w-full h-full relative overflow-hidden mx-auto">
                       
                       {/* Sliding horizontal strip for screenshots */}
                       <motion.div
@@ -385,11 +386,11 @@ const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
                         transition={{ type: "spring", stiffness: 260, damping: 26 }}
                       >
                         {currentImages.map((imgUrl, idx) => (
-                          <div key={idx} className="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-950">
+                          <div key={idx} className="w-full h-full flex-shrink-0 flex items-center justify-center">
                             <img 
                               src={imgUrl} 
                               alt={`${currentItemInfo.title} screenshot ${idx + 1}`} 
-                              className="w-full h-full object-contain"
+                              className="max-w-full max-h-full object-contain rounded-2xl border border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
                             />
                           </div>
                         ))}
@@ -404,7 +405,12 @@ const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
                                 e.stopPropagation();
                                 setInnerImageIndex(prev => (prev - 1 + currentImages.length) % currentImages.length);
                             }}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded bg-slate-950/75 border border-slate-800/60 text-slate-300 hover:text-white transition-colors z-20 cursor-pointer shadow-md hover:bg-slate-900/80"
+                            className={`absolute top-1/2 -translate-y-1/2 p-2 rounded bg-slate-950/75 border border-slate-600/80 text-slate-300 hover:text-white transition-all z-20 cursor-pointer shadow-md hover:bg-slate-900/80
+                              ${isMobileProject 
+                                ? "left-[8%] sm:left-[12%] md:left-[16%] lg:left-[20%] xl:left-[22%]" 
+                                : "left-4 sm:left-6 md:left-8"
+                              }
+                            `}
                             aria-label="Previous screenshot"
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5">
@@ -418,7 +424,12 @@ const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
                                 e.stopPropagation();
                                 setInnerImageIndex(prev => (prev + 1) % currentImages.length);
                             }}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded bg-slate-950/75 border border-slate-800/60 text-slate-300 hover:text-white transition-colors z-20 cursor-pointer shadow-md hover:bg-slate-900/80"
+                            className={`absolute top-1/2 -translate-y-1/2 p-2 rounded bg-slate-950/75 border border-slate-600/80 text-slate-300 hover:text-white transition-all z-20 cursor-pointer shadow-md hover:bg-slate-900/80
+                              ${isMobileProject 
+                                ? "right-[8%] sm:right-[12%] md:right-[16%] lg:right-[20%] xl:right-[22%]" 
+                                : "right-4 sm:right-6 md:right-8"
+                              }
+                            `}
                             aria-label="Next screenshot"
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5">
