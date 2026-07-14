@@ -11,20 +11,30 @@ interface LanguageContextType {
 
 const translations = {
   es: {
-    nav: {
+    panels: {
       home: "Inicio",
       projects: "Proyectos",
-      contact: "Contacto",
     },
     main: {
       role: "Full Stack Developer",
       specialization: "Desarrollador con visión Full Stack, especializado en sistemas escalables, rendimiento y desarrollo de aplicaciones modernas.",
       techStack: "Tech Stack",
+      contactTitle: "Contacto y redes",
+      contactSubtitle: "Estoy abierto a nuevas oportunidades y colaboraciones.",
+      madeWith: "Hecho con NextJS y Tailwind",
     },
     projects: {
       title: "Proyectos Destacados",
       viewProject: "Ver Proyecto",
       demoVideo: "Demo Video",
+      tabs: {
+        individual: "Individuales",
+        grupal: "Grupales"
+      },
+      tags: {
+        individual: "Proyecto Individual",
+        grupal: "Proyecto Grupal"
+      },
       items: [
         {
           title: "Kanji Love",
@@ -62,31 +72,38 @@ const translations = {
           title: "Pet Shop",
           description: "El proyecto con el que comencé este trayecto, y por eso continúa en este listado.",
         },
+        {
+          title: "Kana Love",
+          description: "Plataforma educativa para el aprendizaje de los alfabetos japoneses Hiragana y Katakana con práctica de escritura y cuestionarios.",
+        },
       ]
     },
-    contact: {
-      title: "¿Hablamos?",
-      subtitle: "Estoy abierto a nuevas oportunidades y colaboraciones. Podés enviarme un correo a fedee.osorio@gmail.com o encontrarme en LinkedIn.",
-    },
-    footer: {
-      madeWith: "Hecho con NextJS y Tailwind",
-    }
   },
   en: {
-    nav: {
+    panels: {
       home: "Home",
       projects: "Projects",
-      contact: "Contact",
     },
     main: {
       role: "Full Stack Developer",
       specialization: "Developer with a Full Stack mindset, specialized in scalable systems, performance, and modern application development.",
       techStack: "Tech Stack",
+      contactTitle: "Contact & Socials",
+      contactSubtitle: "I am open to new opportunities and collaborations.",
+      madeWith: "Made with NextJS and Tailwind",
     },
     projects: {
       title: "Featured Projects",
       viewProject: "View Project",
       demoVideo: "Demo Video",
+      tabs: {
+        individual: "Individual",
+        grupal: "Team"
+      },
+      tags: {
+        individual: "Solo Project",
+        grupal: "Team Project"
+      },
       items: [
         {
           title: "Kanji Love",
@@ -124,15 +141,12 @@ const translations = {
           title: "Pet Shop",
           description: "The project I started this journey with, which is why it remains on this list.",
         },
+        {
+          title: "Kana Love",
+          description: "Educational platform for learning the Japanese Hiragana and Katakana alphabets, featuring interactive lessons and writing practice.",
+        },
       ]
     },
-    contact: {
-      title: "Let's Talk",
-      subtitle: "I am open to new opportunities and collaborations. You can send me an email at fedee.osorio@gmail.com or find me on LinkedIn.",
-    },
-    footer: {
-      madeWith: "Made with NextJS and Tailwind",
-    }
   }
 };
 
@@ -141,11 +155,21 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>("es");
 
-  // Load language from sessionStorage on mount
+  // Load language from sessionStorage or fallback to browser system language preference on mount
   useEffect(() => {
     const savedLanguage = sessionStorage.getItem("portfolio-language") as Language;
     if (savedLanguage && (savedLanguage === "es" || savedLanguage === "en")) {
       setLanguage(savedLanguage);
+    } else {
+      const browserLang = typeof navigator !== "undefined" ? (navigator.language || (navigator.languages && navigator.languages[0])) : "";
+      if (browserLang) {
+        const langCode = browserLang.substring(0, 2).toLowerCase();
+        if (langCode === "en") {
+          setLanguage("en");
+        } else {
+          setLanguage("es");
+        }
+      }
     }
   }, []);
 

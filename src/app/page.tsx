@@ -1,14 +1,9 @@
-import Image from 'next/image'
-import Main from '@/components/main'
-import Projects from '@/components/projects'
-import Contact from '@/components/contact';
+import PortfolioShell from '@/components/PortfolioShell';
 
 export default function Home() {
   return (
-    <main>
-      <Main />
-      <Projects />
-      <Contact />
+    <main className="w-full h-full">
+      <PortfolioShell />
     </main>
   );
 }
