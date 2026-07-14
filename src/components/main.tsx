@@ -33,7 +33,12 @@ const toolsSkills = [
   { name: "AI Agents", type: "neutral" },
 ];
 
-const Main = () => {
+interface MainProps {
+  setActivePanel?: (panel: "home" | "projects") => void;
+  isMobile?: boolean;
+}
+
+const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
   const { t, language } = useLanguage();
 
   const getPillClass = (type: string) => {
@@ -83,8 +88,10 @@ const Main = () => {
   };
 
   return (
-    <div className="w-full flex-1 flex flex-col justify-center pt-8 md:pt-12 pb-16 md:pb-20 relative">
-      <div className="container mx-auto px-6 lg:px-8 relative z-10 flex-grow flex items-center">
+    <div className={`w-full flex-1 flex flex-col relative
+      ${isMobile ? "justify-start pt-6" : "justify-center pt-8 md:pt-12 pb-16 md:pb-20"}
+    `}>
+      <div className={`container mx-auto px-6 lg:px-8 relative z-10 flex-grow flex ${isMobile ? "items-start pt-2" : "items-center"}`}>
         <div className="w-full max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
@@ -95,9 +102,23 @@ const Main = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <p className="text-purple-400 font-bold tracking-[0.25em] uppercase text-xs md:text-sm mb-3">
-                  Federico Osorio
-                </p>
+                <div className="flex items-center justify-between gap-3 mb-3 w-full">
+                  <p className="text-purple-400 font-bold tracking-[0.25em] uppercase text-xs md:text-sm leading-none m-0 flex items-center h-8">
+                    Federico Osorio
+                  </p>
+                  {isMobile && setActivePanel && (
+                    <motion.button
+                      onClick={() => setActivePanel("projects")}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                      className="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded bg-purple-500/20 text-purple-300 hover:text-purple-200 border border-purple-500/30 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all hover:bg-purple-500/30 leading-none h-8 shadow-sm"
+                    >
+                      <i className="fa-solid fa-briefcase text-[10px]" />
+                      <span className="leading-none">{language === "es" ? "Proyectos" : "Projects"}</span>
+                    </motion.button>
+                  )}
+                </div>
                 <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white mb-5 tracking-tight leading-tight">
                   Full Stack{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">

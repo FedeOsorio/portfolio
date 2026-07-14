@@ -96,9 +96,11 @@ const isMobileApp = (subtitle: string) => {
 
 interface ProjectsProps {
   isActive?: boolean;
+  isMobile?: boolean;
+  setActivePanel?: (panel: "home" | "projects") => void;
 }
 
-const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
+const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActivePanel }) => {
   const { t, language } = useLanguage();
   const projectItems = t("projects.items") as { title: string; description: string }[];
   const [projectType, setProjectType] = useState<"individual" | "grupal">("individual");
@@ -199,9 +201,124 @@ const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
   }, [currentProject, currentIndex, innerImageIndex]);
 
   return (
-    <div className="w-full flex-1 flex flex-col justify-center py-8 md:py-12 relative px-4 md:px-16 overflow-x-hidden">
-
-      <div className="container mx-auto relative z-10 flex-grow flex flex-col justify-center">
+    <div className={`w-full flex-1 flex flex-col relative px-4 md:px-16 overflow-x-hidden
+      ${isMobile ? "justify-start py-6" : "justify-center py-8 md:py-12"}
+    `}>
+      {isMobile ? (
+        <div className="w-full flex flex-col gap-6 max-w-2xl mx-auto pb-12 pt-2">
+          <div className="flex items-center justify-between gap-3 mb-2 border-b border-slate-700/50 pb-3">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-none flex items-center h-8">
+              {t("projects.title")}
+            </h2>
+            {isMobile && setActivePanel && (
+              <motion.button
+                onClick={() => setActivePanel("home")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded bg-purple-500/20 text-purple-300 hover:text-purple-200 border border-purple-500/30 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all hover:bg-purple-500/30 leading-none h-8 shadow-sm"
+              >
+                <i className="fa-solid fa-house text-[10px]" />
+                <span className="leading-none">{language === "es" ? "Inicio" : "Home"}</span>
+              </motion.button>
+            )}
+          </div>
+          
+          <div className="flex flex-col gap-6">
+            {projectsData.map((project) => {
+              const itemInfo = projectItems[project.id] || { title: "", description: "" };
+              const projectImages = project.images || (project.image ? [project.image] : []);
+              
+              return (
+                <div 
+                  key={project.id}
+                  className="rounded-2xl border border-slate-800/80 bg-slate-900/40 backdrop-blur-md p-5 flex flex-col gap-4 shadow-xl"
+                >
+                  {/* Card Header */}
+                  <div className="flex flex-col gap-1.5">
+                    <div className="flex justify-between items-start gap-2">
+                      <h3 className="text-xl font-bold text-white tracking-tight">
+                        {itemInfo.title}
+                      </h3>
+                      
+                      {/* Tag pill */}
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border flex-shrink-0
+                        ${project.type === "individual" 
+                          ? "bg-purple-500/10 text-purple-400 border-purple-500/20 shadow-[0_0_10px_rgba(168,85,247,0.15)]" 
+                          : project.type === "grupal"
+                            ? "bg-teal-500/10 text-teal-400 border-teal-500/20 shadow-[0_0_10px_rgba(20,184,166,0.15)]"
+                            : "bg-slate-800/40 text-slate-400 border-slate-700/50"
+                        }
+                      `}>
+                        {project.type === "individual" 
+                          ? t("projects.tags.individual") 
+                          : project.type === "grupal"
+                            ? t("projects.tags.grupal")
+                            : (language === "en" ? "Legacy Project" : "Proyecto Legacy")
+                        }
+                      </span>
+                    </div>
+                    
+                    <div className="text-xs text-slate-400 font-mono tracking-wide">
+                      {project.subtitle}
+                    </div>
+                  </div>
+                  
+                  {/* Screenshots gallery */}
+                  {projectImages.length > 0 && (
+                    <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory">
+                      {projectImages.map((imgUrl, idx) => (
+                        <div 
+                          key={idx} 
+                          className="flex-shrink-0 snap-center max-w-[85%] flex items-center justify-center"
+                        >
+                          <img 
+                            src={imgUrl} 
+                            alt={`${itemInfo.title} screenshot ${idx + 1}`}
+                            className="h-64 object-contain rounded-xl border border-slate-800/80 shadow-md bg-slate-950/20"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Description */}
+                  <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-light">
+                    {itemInfo.description}
+                  </p>
+                  
+                  {/* Buttons */}
+                  <div className="flex items-center gap-2.5 mt-2">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-grow py-2 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-xs font-semibold rounded flex items-center justify-center gap-1.5 transition-all shadow-md"
+                    >
+                      <span>{t("projects.viewProject")}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </a>
+                    
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-xs font-semibold rounded transition-all border border-slate-700/60"
+                      >
+                        {t("projects.demoVideo")}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div className="container mx-auto relative z-10 flex-grow flex flex-col justify-center">
         <div className="w-full max-w-6xl mx-auto relative">
           
           {/* Floating navigation arrows (Desktop only, active panel only, relative to max-w-6xl) */}
@@ -499,8 +616,9 @@ const Projects: React.FC<ProjectsProps> = ({ isActive }) => {
 
         </div>
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
 };
 
 export default Projects;

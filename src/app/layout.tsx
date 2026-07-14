@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Header from "@/components/header";
 import Script from "next/script";
 
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -21,7 +20,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			</head>
 			<body className={`${inter.className} flex flex-col h-screen overflow-hidden`}>
 				<LanguageProvider>
-					<Header />
 					<div className="flex-1 relative overflow-hidden w-full">
 						{children}
 					</div>
