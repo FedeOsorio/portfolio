@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 const backendSkills = [
@@ -10,6 +10,10 @@ const backendSkills = [
   { name: "Express", type: "purple" },
   { name: "Nest.js", type: "purple" },
   { name: "GraphQL", type: "purple" },
+  { name: "Prisma", type: "purple" },
+  { name: "Drizzle", type: "purple" },
+  { name: "Redis", type: "purple" },
+  { name: "RabbitMQ", type: "purple" },
 ];
 
 const frontendSkills = [
@@ -22,15 +26,12 @@ const frontendSkills = [
 ];
 
 const toolsSkills = [
-  { name: "Prisma", type: "neutral" },
-  { name: "Drizzle", type: "neutral" },
   { name: "PostgreSQL", type: "neutral" },
   { name: "MongoDB", type: "neutral" },
-  { name: "Redis", type: "neutral" },
-  { name: "RabbitMQ", type: "neutral" },
   { name: "Docker", type: "neutral" },
   { name: "Linux", type: "neutral" },
   { name: "Git", type: "neutral" },
+  { name: "CI/CD", type: "neutral" },
   { name: "LLM Integration", type: "neutral" },
   { name: "AI Agents", type: "neutral" },
 ];
@@ -42,6 +43,37 @@ interface MainProps {
 
 const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
   const { t, language } = useLanguage();
+  const [techIndex, setTechIndex] = useState(0);
+
+  const techCategories = [
+    {
+      id: "backend",
+      label: "Backend",
+      icon: "fa-server",
+      skills: backendSkills,
+      borderColor: "border-purple-500/20 hover:border-purple-500/40",
+      badgeBg: "bg-purple-500/10 text-purple-400",
+      activeTabBg: "bg-purple-500/25 border-purple-500/40 text-purple-200 shadow-sm",
+    },
+    {
+      id: "frontend",
+      label: "Frontend",
+      icon: "fa-laptop-code",
+      skills: frontendSkills,
+      borderColor: "border-teal-500/20 hover:border-teal-500/40",
+      badgeBg: "bg-teal-500/10 text-teal-400",
+      activeTabBg: "bg-teal-500/25 border-teal-500/40 text-teal-200 shadow-sm",
+    },
+    {
+      id: "tools",
+      label: language === "es" ? "Herramientas y Base de Datos" : "Tools & Databases",
+      icon: "fa-screwdriver-wrench",
+      skills: toolsSkills,
+      borderColor: "border-slate-700/40 hover:border-slate-500/40",
+      badgeBg: "bg-slate-800/40 text-slate-400",
+      activeTabBg: "bg-slate-800/60 border-slate-600/50 text-slate-200 shadow-sm",
+    },
+  ];
 
   const getPillClass = (type: string) => {
     switch (type) {
@@ -54,185 +86,163 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
     }
   };
 
-  const renderSkillsRow = (skills: any[], delayOffset: number) => (
+  const renderSkillsRow = (skills: any[]) => (
     <div className="flex flex-wrap justify-start gap-2 md:gap-2.5 w-full">
-      {skills.map((skill, index) => (
-        <motion.span
+      {skills.map((skill) => (
+        <span
           key={skill.name}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.05, y: -2 }}
-          transition={{
-            duration: 0.4,
-            delay: delayOffset + (index * 0.03),
-            scale: { type: "spring", stiffness: 300, damping: 10 }
-          }}
-          className={`flex items-center justify-center text-center font-semibold border shadow-sm cursor-default transition-colors ${getPillClass(skill.type)}
-            px-3 py-1 text-[10px] md:text-xs rounded-full`}
+          className={`flex items-center justify-center text-center font-semibold border shadow-sm cursor-default transition-colors ${getPillClass(skill.type)} px-3 py-1 text-[10px] md:text-xs rounded-full`}
         >
           {skill.name}
-        </motion.span>
+        </span>
       ))}
     </div>
   );
 
-  const cardVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: (index: number) => ({
-      opacity: 1,
-      transition: {
-        delay: 0.2 + index * 0.12,
-        duration: 0.6,
-        ease: "easeOut" as const
-      }
-    })
-  };
-
   return (
-    <div className={`w-full flex-1 flex flex-col relative
-      ${isMobile ? "justify-start pt-6" : "justify-center pt-8 md:pt-12 pb-16 md:pb-20"}
+    <div className={`w-full flex-1 flex flex-col relative my-auto
+      ${isMobile ? "justify-start pt-6" : "justify-center py-4 md:py-6"}
     `}>
-      <div className={`container mx-auto px-4 md:px-8 lg:px-10 relative z-10 flex-grow flex ${isMobile ? "items-start pt-2" : "items-center"}`}>
-        <div className="w-full max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+      <div className="container mx-auto px-4 md:px-8 lg:px-10 relative z-10 flex-grow flex flex-col justify-center">
+        <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 lg:gap-8">
 
-            {/* Left Column: Intro and Contact */}
-            <div className="lg:col-span-5 flex flex-col justify-center text-left">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <div className="flex items-center justify-between gap-3 mb-3 w-full">
-                  <p className="text-purple-400 font-bold tracking-[0.25em] uppercase text-xs md:text-sm leading-none m-0 flex items-center h-8">
-                    Federico Osorio
-                  </p>
-                  {isMobile && setActivePanel && (
-                    <motion.button
-                      onClick={() => setActivePanel("projects")}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded bg-purple-500/20 text-purple-300 hover:text-purple-200 border border-purple-500/30 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all hover:bg-purple-500/30 leading-none h-8 shadow-sm"
-                    >
-                      <i className="fa-solid fa-briefcase text-[10px]" />
-                      <span className="leading-none">{language === "es" ? "Proyectos" : "Projects"}</span>
-                    </motion.button>
-                  )}
-                </div>
-                <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white mb-5 tracking-tight leading-tight">
-                  Full Stack{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">
-                    Developer
-                  </span>
-                </h1>
-
-                <p className="text-base md:text-lg text-slate-300 leading-relaxed mb-8 font-light max-w-lg text-justify">
-                  {t("main.specialization")}
+          {/* Top Section: Intro and Contact */}
+          <div className="w-full flex flex-col text-left">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <div className="flex items-center justify-between gap-3 mb-3 w-full">
+                <p className="text-purple-400 font-bold tracking-[0.25em] uppercase text-xs md:text-sm leading-none m-0 flex items-center h-8">
+                  Federico Osorio
                 </p>
+                {isMobile && setActivePanel && (
+                  <motion.button
+                    onClick={() => setActivePanel("projects")}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    className="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded bg-purple-500/20 text-purple-300 hover:text-purple-200 border border-purple-500/30 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all hover:bg-purple-500/30 leading-none h-8 shadow-sm"
+                  >
+                    <i className="fa-solid fa-briefcase text-[10px]" />
+                    <span className="leading-none">{language === "es" ? "Proyectos" : "Projects"}</span>
+                  </motion.button>
+                )}
+              </div>
+              <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white mb-5 tracking-tight leading-tight">
+                Full Stack{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">
+                  Developer
+                </span>
+              </h1>
 
-                {/* Contact Section */}
-                <div className="space-y-4 border-t border-slate-700/50 pt-6">
-                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-                    {t("main.contactTitle")}
-                  </h3>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <a
-                      href="mailto:fedee.osorio@gmail.com"
-                      className="flex items-center gap-2 px-4 py-2.5 bg-slate-800/40 hover:bg-slate-700/60 text-purple-300 hover:text-purple-200 rounded-full transition-all border border-purple-500/20 hover:border-purple-500/40 text-xs md:text-sm font-semibold shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
-                    >
-                      <i className="fa-solid fa-envelope text-sm" />
-                      <span>fedee.osorio@gmail.com</span>
-                    </a>
-                    <a
-                      href="https://github.com/FedeOsorio"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-11 h-11 bg-slate-800/40 hover:bg-slate-700/60 text-white rounded-full transition-all border border-slate-700/50 hover:border-slate-400/50 hover:shadow-sm"
-                    >
-                      <i className="fa-brands fa-github text-lg" />
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/fedeosorio/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-11 h-11 bg-slate-800/40 hover:bg-slate-700/60 text-white rounded-full transition-all border border-slate-700/50 hover:border-teal-500/50 hover:shadow-sm"
-                    >
-                      <i className="fa-brands fa-linkedin text-lg" />
-                    </a>
-                  </div>
+              <p className="text-base md:text-lg text-slate-300 leading-relaxed mb-6 font-light text-justify">
+                {t("main.specialization")}
+              </p>
+
+              {/* Contact Section - Centered */}
+              <div className="space-y-3 border-t border-slate-700/50 pt-5 flex flex-col items-center text-center">
+                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+                  {t("main.contactTitle")}
+                </h3>
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <a
+                    href="mailto:fedee.osorio@gmail.com"
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-800/40 hover:bg-slate-700/60 text-purple-300 hover:text-purple-200 rounded-full transition-all border border-purple-500/20 hover:border-purple-500/40 text-xs md:text-sm font-semibold shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
+                  >
+                    <i className="fa-solid fa-envelope text-sm" />
+                    <span>fedee.osorio@gmail.com</span>
+                  </a>
+                  <a
+                    href="https://github.com/FedeOsorio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 bg-slate-800/40 hover:bg-slate-700/60 text-white rounded-full transition-all border border-slate-700/50 hover:border-slate-400/50 hover:shadow-sm"
+                  >
+                    <i className="fa-brands fa-github text-lg" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/fedeosorio/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 bg-slate-800/40 hover:bg-slate-700/60 text-white rounded-full transition-all border border-slate-700/50 hover:border-teal-500/50 hover:shadow-sm"
+                  >
+                    <i className="fa-brands fa-linkedin text-lg" />
+                  </a>
                 </div>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
+          </div>
 
-            {/* Right Column: Skills Cards */}
-            <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-center w-full">
-              <div className="flex flex-col items-start gap-4 md:gap-5 w-full">
+          {/* Bottom Section: Reserved Outer Area with Flexible 1/2 Row Card */}
+          <div className="w-full flex flex-col gap-3 min-h-[180px] md:min-h-[190px] flex-none justify-start">
+            <div className="flex items-center justify-between gap-3 flex-none">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+                {t("main.techStack")}
+              </h3>
 
-                {/* Backend Card */}
-                <motion.div
-                  custom={0}
-                  initial="hidden"
-                  animate="visible"
-                  variants={cardVariants}
-                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-purple-500/20 hover:border-purple-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full max-w-[560px]"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 group-hover:scale-110 transition-transform">
-                      <i className="fa-solid fa-server text-sm" />
-                    </div>
-                    <span className="font-bold text-sm text-slate-200 tracking-wide">
-                      Backend
-                    </span>
-                  </div>
-                  {renderSkillsRow(backendSkills, 0.3)}
-                </motion.div>
-
-                {/* Frontend Card */}
-                <motion.div
-                  custom={1}
-                  initial="hidden"
-                  animate="visible"
-                  variants={cardVariants}
-                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-teal-500/20 hover:border-teal-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full max-w-[560px]"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-teal-500/10 text-teal-400 group-hover:scale-110 transition-transform">
-                      <i className="fa-solid fa-laptop-code text-sm" />
-                    </div>
-                    <span className="font-bold text-sm text-slate-200 tracking-wide">
-                      Frontend
-                    </span>
-                  </div>
-                  {renderSkillsRow(frontendSkills, 0.4)}
-                </motion.div>
-
-                {/* Tools & DBs Card */}
-                <motion.div
-                  custom={2}
-                  initial="hidden"
-                  animate="visible"
-                  variants={cardVariants}
-                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-slate-700/40 hover:border-slate-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full max-w-[560px]"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800/40 text-slate-400 group-hover:scale-110 transition-transform">
-                      <i className="fa-solid fa-screwdriver-wrench text-sm" />
-                    </div>
-                    <span className="font-bold text-sm text-slate-200 tracking-wide">
-                      {language === "es" ? "Herramientas y Base de Datos" : "Tools & Databases"}
-                    </span>
-                  </div>
-                  {renderSkillsRow(toolsSkills, 0.5)}
-                </motion.div>
-
+              {/* Category Pills / Navigation Tabs */}
+              <div className="flex items-center gap-1.5 md:gap-2">
+                {techCategories.map((cat, idx) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setTechIndex(idx)}
+                    className={`px-3 py-1 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider transition-all border cursor-pointer ${
+                      techIndex === idx
+                        ? cat.activeTabBg
+                        : "bg-slate-900/30 text-slate-400 border-slate-800/60 hover:text-slate-200 hover:border-slate-700"
+                    }`}
+                  >
+                    {cat.id === "tools" ? (language === "es" ? "Herramientas" : "Tools") : cat.label}
+                  </button>
+                ))}
               </div>
             </div>
 
+            {/* Reserved Outer Space */}
+            <div className="relative w-full min-h-[135px] md:min-h-[145px] flex flex-col justify-start">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={techCategories[techIndex].id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "linear" }}
+                  className={`p-4 md:p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border ${techCategories[techIndex].borderColor} transition-colors shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full h-auto`}
+                >
+                  <div className="flex items-center justify-between flex-none">
+                    <span className="font-bold text-sm text-slate-200 tracking-wide">
+                      {techCategories[techIndex].label}
+                    </span>
+
+                    {/* Navigation Arrow buttons */}
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => setTechIndex((prev) => (prev === 0 ? techCategories.length - 1 : prev - 1))}
+                        className="w-7 h-7 rounded-lg bg-slate-800/40 hover:bg-slate-700/60 text-slate-400 hover:text-white flex items-center justify-center transition-all border border-slate-700/50 cursor-pointer"
+                        aria-label="Previous category"
+                      >
+                        <i className="fa-solid fa-chevron-left text-[10px]" />
+                      </button>
+                      <button
+                        onClick={() => setTechIndex((prev) => (prev === techCategories.length - 1 ? 0 : prev + 1))}
+                        className="w-7 h-7 rounded-lg bg-slate-800/40 hover:bg-slate-700/60 text-slate-400 hover:text-white flex items-center justify-center transition-all border border-slate-700/50 cursor-pointer"
+                        aria-label="Next category"
+                      >
+                        <i className="fa-solid fa-chevron-right text-[10px]" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {renderSkillsRow(techCategories[techIndex].skills)}
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
+
         </div>
       </div>
-
     </div>
   );
 };
