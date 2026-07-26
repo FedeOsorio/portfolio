@@ -86,10 +86,10 @@ const translations = {
     },
     main: {
       role: "Full Stack Developer",
-      specialization: "4+ years in professional development for digital banking, while building diverse projects across different technologies independently. As a professional, my focus is information security, response speed, and scalability.",
+      specialization: "4+ years of professional experience in digital banking development and building diverse projects across different technologies independently. As a professional, my focus is information security, high performance, and scalability.",
       techStack: "Tech Stack",
       contactTitle: "Contact & Socials",
-      contactSubtitle: "I am open to new opportunities and collaborations.",
+      contactSubtitle: "Open to new opportunities and collaborations.",
       madeWith: "Made with NextJS and Tailwind",
     },
     projects: {
@@ -97,8 +97,8 @@ const translations = {
       viewProject: "View Project",
       demoVideo: "Demo Video",
       tabs: {
-        individual: "Individual",
-        grupal: "Team"
+        individual: "Solo Projects",
+        grupal: "Team Projects"
       },
       tags: {
         individual: "Solo Project",
@@ -111,39 +111,39 @@ const translations = {
         },
         {
           title: "A.S.T.A.",
-          description: "SaaS platform for appointment scheduling and client management, featuring WhatsApp messaging integration.",
+          description: "SaaS platform for appointment scheduling and client management with automated WhatsApp integration.",
         },
         {
           title: "KuYi App",
-          description: "A specialized mobile guide for guinea pig care, featuring pet management tools and cloud-synced daily journaling.",
+          description: "Specialized mobile guide for guinea pig care, featuring pet management tools and cloud-synced daily journaling.",
         },
         {
           title: "IFTS N°26",
-          description: "Redesign and development of the official website for technical institute N°26. Modern and responsive experience.",
+          description: "Redesign and development of the official website for Technical Institute N°26. Modern and responsive experience.",
         },
         {
-          title: "The Literary Corner",
+          title: "La Esquina Literaria",
           description: "Web platform for book reviews with authentication, filtering, and search. Future store integration.",
         },
         {
-          title: "Sports Corporation",
-          description: "Sports management system with user/admin roles and activity registrations.",
+          title: "Sociedad Anónima Deportiva",
+          description: "Sports management system with user/admin role-based access and activity registration.",
         },
         {
           title: "Kirlia Shop",
-          description: "E-commerce specialized in Pokémon TCG cards. Efficient catalog management.",
+          description: "E-commerce specialized in Pokémon TCG cards featuring efficient catalog management.",
         },
         {
-          title: "Hours Management",
-          description: "Trello-like tool for tracking time per client and project.",
+          title: "Time Tracking System",
+          description: "Kanban-style tool for tracking billable hours and time per client and project.",
         },
         {
           title: "Pet Shop",
-          description: "The project I started this journey with, which is why it remains on this list.",
+          description: "The initial project where I started my development journey, proudly preserved in this list.",
         },
         {
           title: "Kana Love",
-          description: "Educational platform for learning the Japanese Hiragana and Katakana alphabets, featuring interactive lessons and writing practice.",
+          description: "Educational platform for learning Japanese Hiragana and Katakana alphabets with writing practice and quizzes.",
         },
       ]
     },
