@@ -17,7 +17,7 @@ const translations = {
     },
     main: {
       role: "Full Stack Developer",
-      specialization: "Desarrollador con visión Full Stack, especializado en sistemas escalables, rendimiento y desarrollo de aplicaciones modernas.",
+      specialization: "4+ años en desarrollo profesional para banca digital, y construyendo diversos proyectos en diferentes tecnologías de manera independiente. Como profesional, mi enfoque es la seguridad de la información, la velocidad de respuesta y la escalabilidad.",
       techStack: "Tech Stack",
       contactTitle: "Contacto y redes",
       contactSubtitle: "Estoy abierto a nuevas oportunidades y colaboraciones.",
@@ -86,7 +86,7 @@ const translations = {
     },
     main: {
       role: "Full Stack Developer",
-      specialization: "Developer with a Full Stack mindset, specialized in scalable systems, performance, and modern application development.",
+      specialization: "4+ years in professional development for digital banking, while building diverse projects across different technologies independently. As a professional, my focus is information security, response speed, and scalability.",
       techStack: "Tech Stack",
       contactTitle: "Contact & Socials",
       contactSubtitle: "I am open to new opportunities and collaborations.",

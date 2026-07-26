@@ -319,7 +319,7 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
         </div>
       ) : (
         <div className="container mx-auto relative z-10 flex-grow flex flex-col justify-center">
-        <div className="w-full max-w-6xl mx-auto relative">
+        <div className="w-full max-w-7xl mx-auto relative">
           
           {/* Floating navigation arrows (Desktop only, active panel only, relative to max-w-6xl) */}
           {isActive && filteredProjects.length > 1 && (
@@ -419,7 +419,7 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
           </div>
 
           {/* Grid Layout (4 cols text, 8 cols giant screenshot) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative min-h-[300px] md:min-h-[420px] lg:min-h-[480px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center relative min-h-[300px] md:min-h-[420px] lg:min-h-[480px]">
 
             {/* Left Column: Spacious Product Info (4 cols) */}
             <div className="lg:col-span-4 flex flex-col justify-center text-left relative z-10">

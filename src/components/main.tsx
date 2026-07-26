@@ -9,6 +9,7 @@ const backendSkills = [
   { name: "Node.js", type: "purple" },
   { name: "Express", type: "purple" },
   { name: "Nest.js", type: "purple" },
+  { name: "GraphQL", type: "purple" },
 ];
 
 const frontendSkills = [
@@ -22,6 +23,7 @@ const frontendSkills = [
 
 const toolsSkills = [
   { name: "Prisma", type: "neutral" },
+  { name: "Drizzle", type: "neutral" },
   { name: "PostgreSQL", type: "neutral" },
   { name: "MongoDB", type: "neutral" },
   { name: "Redis", type: "neutral" },
@@ -75,10 +77,9 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
   );
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, x: 20 },
+    hidden: { opacity: 0 },
     visible: (index: number) => ({
       opacity: 1,
-      x: 0,
       transition: {
         delay: 0.2 + index * 0.12,
         duration: 0.6,
@@ -91,9 +92,9 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
     <div className={`w-full flex-1 flex flex-col relative
       ${isMobile ? "justify-start pt-6" : "justify-center pt-8 md:pt-12 pb-16 md:pb-20"}
     `}>
-      <div className={`container mx-auto px-6 lg:px-8 relative z-10 flex-grow flex ${isMobile ? "items-start pt-2" : "items-center"}`}>
-        <div className="w-full max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className={`container mx-auto px-4 md:px-8 lg:px-10 relative z-10 flex-grow flex ${isMobile ? "items-start pt-2" : "items-center"}`}>
+        <div className="w-full max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
 
             {/* Left Column: Intro and Contact */}
             <div className="lg:col-span-5 flex flex-col justify-center text-left">
@@ -126,7 +127,7 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
                   </span>
                 </h1>
 
-                <p className="text-base md:text-lg text-slate-300 leading-relaxed mb-8 font-light max-w-lg">
+                <p className="text-base md:text-lg text-slate-300 leading-relaxed mb-8 font-light max-w-lg text-justify">
                   {t("main.specialization")}
                 </p>
 
@@ -165,8 +166,8 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
             </div>
 
             {/* Right Column: Skills Cards */}
-            <div className="lg:col-span-7 flex flex-col justify-center w-full">
-              <div className="flex flex-col gap-4 md:gap-5 w-full">
+            <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-center w-full">
+              <div className="flex flex-col items-start gap-4 md:gap-5 w-full">
 
                 {/* Backend Card */}
                 <motion.div
@@ -174,7 +175,7 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
                   initial="hidden"
                   animate="visible"
                   variants={cardVariants}
-                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-purple-500/20 hover:border-purple-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group"
+                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-purple-500/20 hover:border-purple-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full max-w-[560px]"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 group-hover:scale-110 transition-transform">
@@ -193,7 +194,7 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
                   initial="hidden"
                   animate="visible"
                   variants={cardVariants}
-                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-teal-500/20 hover:border-teal-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group"
+                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-teal-500/20 hover:border-teal-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full max-w-[560px]"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-teal-500/10 text-teal-400 group-hover:scale-110 transition-transform">
@@ -212,7 +213,7 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
                   initial="hidden"
                   animate="visible"
                   variants={cardVariants}
-                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-slate-700/40 hover:border-slate-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group"
+                  className="p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-slate-700/40 hover:border-slate-500/40 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full max-w-[560px]"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800/40 text-slate-400 group-hover:scale-110 transition-transform">
@@ -232,10 +233,6 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
         </div>
       </div>
 
-      {/* Footer Info */}
-      <div className="absolute bottom-4 md:bottom-6 left-0 w-full text-center text-xs text-slate-500">
-        © 2026 - {t("main.madeWith")}
-      </div>
     </div>
   );
 };
