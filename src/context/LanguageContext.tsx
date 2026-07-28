@@ -26,7 +26,15 @@ const translations = {
     projects: {
       title: "Proyectos Destacados",
       viewProject: "Ver Proyecto",
+      viewDetails: "Ver Detalle",
       demoVideo: "Demo Video",
+      details: {
+        problemTitle: "El problema",
+        solutionTitle: "La solución",
+        techTitle: "Tecnologías utilizadas",
+        galleryTitle: "Galería",
+        backButton: "Volver a proyectos"
+      },
       tabs: {
         individual: "Individuales",
         grupal: "Grupales"
@@ -39,6 +47,8 @@ const translations = {
         {
           title: "Kanji Love",
           description: "Plataforma educativa para el aprendizaje de Kanjis japoneses con sistema de gamificación y estudio inteligente.",
+          problem: "Una vez dominados los silabarios, el siguiente y más complejo desafío es el aprendizaje de los Kanji (ideogramas). Existen miles de caracteres, cada uno con múltiples lecturas y significados, lo que requiere un método de estudio inteligente y estructurado para evitar la frustración.",
+          solution: "Kanji Love aborda este problema mediante un sistema de estudio inteligente basado en repetición espaciada y gamificación. La plataforma categoriza los Kanjis por niveles (JLPT), ofreciendo ejercicios de escritura, validación de trazos y un seguimiento detallado del progreso del estudiante."
         },
         {
           title: "A.S.T.A.",
@@ -47,6 +57,8 @@ const translations = {
         {
           title: "KuYi App",
           description: "Aplicación móvil guía sobre el cuidado de Cobayos. Cuenta con sistema de gestión de mascotas y anotador diario con guardado en la nube.",
+          problem: "La información sobre el cuidado específico de cobayos suele estar dispersa o ser contradictoria. Además, los dueños carecen de herramientas centralizadas para llevar un control de salud, alimentación y rutinas diarias de sus mascotas de manera organizada.",
+          solution: "KuYi App actúa como una guía móvil especializada y herramienta de gestión. Permite crear perfiles para cada mascota, registrar su peso, salud, recordatorios y un diario sincronizado en la nube mediante Firebase, asegurando que el historial vital nunca se pierda."
         },
         {
           title: "IFTS N°26",
@@ -75,6 +87,8 @@ const translations = {
         {
           title: "Kana Love",
           description: "Plataforma educativa para el aprendizaje de los alfabetos japoneses Hiragana y Katakana con práctica de escritura y cuestionarios.",
+          problem: "Aprender los silabarios japoneses (Hiragana y Katakana) es el primer gran obstáculo para cualquier estudiante de japonés. Los métodos tradicionales basados únicamente en repetición visual suelen ser tediosos y no fomentan una retención sólida a largo plazo.",
+          solution: "Kana Love transforma el aprendizaje en una experiencia gamificada e interactiva. Incluye lecciones estructuradas, práctica de trazos interactiva en pantalla y un sistema de cuestionarios dinámicos que se adaptan al progreso del usuario para asegurar una memorización efectiva."
         },
       ]
     },
@@ -94,8 +108,16 @@ const translations = {
     },
     projects: {
       title: "Featured Projects",
-      viewProject: "View Project",
+      viewProject: "Live Site",
+      viewDetails: "View Details",
       demoVideo: "Demo Video",
+      details: {
+        problemTitle: "The Problem",
+        solutionTitle: "The Solution",
+        techTitle: "Technologies Used",
+        galleryTitle: "Gallery",
+        backButton: "Back to projects"
+      },
       tabs: {
         individual: "Solo Projects",
         grupal: "Team Projects"
@@ -108,6 +130,8 @@ const translations = {
         {
           title: "Kanji Love",
           description: "Educational platform for learning Japanese Kanji, featuring gamification and a smart study system.",
+          problem: "Once the syllabaries are mastered, the next and most complex challenge is learning Kanji (ideograms). There are thousands of characters, each with multiple readings and meanings, requiring a smart and structured study method to avoid frustration.",
+          solution: "Kanji Love tackles this issue through a smart study system based on spaced repetition and gamification. The platform categorizes Kanji by level (JLPT), offering writing exercises, stroke validation, and detailed student progress tracking."
         },
         {
           title: "A.S.T.A.",
@@ -116,6 +140,8 @@ const translations = {
         {
           title: "KuYi App",
           description: "Specialized mobile guide for guinea pig care, featuring pet management tools and cloud-synced daily journaling.",
+          problem: "Information about guinea pig care is often scattered or contradictory. Furthermore, owners lack centralized tools to keep an organized record of their pets' health, feeding, and daily routines.",
+          solution: "KuYi App acts as a specialized mobile guide and management tool. It allows users to create profiles for each pet, log weight, health, reminders, and a daily journal synced to the cloud via Firebase, ensuring vital history is never lost."
         },
         {
           title: "IFTS N°26",
@@ -144,6 +170,8 @@ const translations = {
         {
           title: "Kana Love",
           description: "Educational platform for learning Japanese Hiragana and Katakana alphabets with writing practice and quizzes.",
+          problem: "Learning the Japanese syllabaries (Hiragana and Katakana) is the first major hurdle for any Japanese student. Traditional methods based solely on visual repetition are often tedious and do not foster solid long-term retention.",
+          solution: "Kana Love turns learning into a gamified and interactive experience. It features structured lessons, interactive on-screen stroke practice, and a dynamic quiz system that adapts to user progress to ensure effective memorization."
         },
       ]
     },

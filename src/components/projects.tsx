@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import ProjectDetails from "./ProjectDetails";
 
 const projectsData = [
   {
@@ -107,6 +108,8 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
   const [subType, setSubType] = useState<"mobile" | "web">("mobile");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [innerImageIndex, setInnerImageIndex] = useState(0);
+  const [showDetails, setShowDetails] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
 
   // Reset carousel to Kana Love when projects panel becomes inactive
   useEffect(() => {
@@ -115,6 +118,7 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
       setSubType("mobile");
       setCurrentIndex(0);
       setInnerImageIndex(0);
+      setShowDetails(false);
     }
   }, [isActive]);
 
@@ -200,8 +204,31 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
     return () => clearInterval(interval);
   }, [currentProject, currentIndex, innerImageIndex]);
 
+  const handleOpenDetails = (projectId: number) => {
+    setSelectedProjectId(projectId);
+    setShowDetails(true);
+  };
+
+  if (showDetails && selectedProjectId !== null) {
+    const selectedProject = projectsData.find(p => p.id === selectedProjectId);
+    const selectedItemInfo = selectedProject ? (projectItems[selectedProject.id] || { title: "", description: "" }) : { title: "", description: "" };
+    
+    if (selectedProject) {
+      return (
+        <div className="w-full flex-1 flex flex-col relative overflow-x-hidden">
+          <ProjectDetails 
+            project={selectedProject} 
+            itemInfo={selectedItemInfo}
+            onBack={() => setShowDetails(false)}
+            isMobileProject={isMobileApp(selectedProject.subtitle)}
+          />
+        </div>
+      );
+    }
+  }
+
   return (
-    <div className={`w-full flex-1 flex flex-col relative px-4 md:px-16 overflow-x-hidden
+    <div className={`w-full flex-1 flex flex-col relative px-8 md:pl-16 md:pr-[calc(4rem+12px)] lg:pl-32 lg:pr-[calc(8rem+12px)] xl:pl-48 xl:pr-[calc(12rem+12px)] overflow-x-hidden
       ${isMobile ? "justify-start py-6" : "justify-center py-8 md:py-12"}
     `}>
       {isMobile ? (
@@ -289,6 +316,13 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
                   
                   {/* Buttons */}
                   <div className="flex items-center gap-2.5 mt-2">
+                    <button
+                      onClick={() => handleOpenDetails(project.id)}
+                      className="flex-grow py-2 bg-slate-800/50 border border-slate-700/60 text-slate-300 hover:bg-slate-700/60 text-xs font-semibold rounded flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer"
+                    >
+                      <span>{t("projects.viewDetails")}</span>
+                    </button>
+                    
                     <a
                       href={project.link}
                       target="_blank"
@@ -296,9 +330,7 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
                       className="flex-grow py-2 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-xs font-semibold rounded flex items-center justify-center gap-1.5 transition-all shadow-md"
                     >
                       <span>{t("projects.viewProject")}</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
+                      <i className="fa-solid fa-external-link-alt text-[10px]" />
                     </a>
                     
                     {project.demo && (
@@ -318,8 +350,8 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
           </div>
         </div>
       ) : (
-        <div className="container mx-auto relative z-10 flex-grow flex flex-col justify-center">
-        <div className="w-full max-w-7xl mx-auto relative">
+        <div className="w-full h-full relative z-10 flex-grow flex flex-col justify-center">
+        <div className="w-full relative">
           
           {/* Floating navigation arrows (Desktop only, active panel only, relative to max-w-6xl) */}
           {isActive && filteredProjects.length > 1 && (
@@ -449,6 +481,13 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
 
                     {/* Action buttons */}
                     <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        onClick={() => handleOpenDetails(currentProject.id)}
+                        className="px-6 py-2.5 bg-slate-800/50 border border-slate-700/60 text-slate-300 hover:bg-slate-700/60 text-xs md:text-sm font-semibold rounded flex items-center gap-2 transition-all shadow-md cursor-pointer"
+                      >
+                        <span>{t("projects.viewDetails")}</span>
+                      </button>
+
                       <a
                         href={currentProject.link}
                         target="_blank"
@@ -456,9 +495,7 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
                         className="px-6 py-2.5 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-xs md:text-sm font-semibold rounded flex items-center gap-2 transition-all shadow-md hover:shadow-[0_0_15px_rgba(168,85,247,0.2)]"
                       >
                         <span>{t("projects.viewProject")}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
+                        <i className="fa-solid fa-external-link-alt text-[10px]" />
                       </a>
                       
                       {currentProject.demo && (

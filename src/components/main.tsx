@@ -87,11 +87,11 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
   };
 
   const renderSkillsRow = (skills: any[]) => (
-    <div className="flex flex-wrap justify-start gap-2 md:gap-2.5 w-full">
+    <div className="flex flex-wrap justify-center gap-2 md:gap-3 w-full">
       {skills.map((skill) => (
         <span
           key={skill.name}
-          className={`flex items-center justify-center text-center font-semibold border shadow-sm cursor-default transition-colors ${getPillClass(skill.type)} px-3 py-1 text-[10px] md:text-xs rounded-full`}
+          className={`flex items-center justify-center text-center font-semibold border shadow-sm cursor-default transition-colors ${getPillClass(skill.type)} px-3.5 py-1 md:px-4 md:py-1.5 text-[11px] md:text-[13px] rounded-2xl`}
         >
           {skill.name}
         </span>
@@ -103,8 +103,8 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
     <div className={`w-full flex-1 flex flex-col relative my-auto
       ${isMobile ? "justify-start pt-6" : "justify-center py-4 md:py-6"}
     `}>
-      <div className="container mx-auto px-4 md:px-8 lg:px-10 relative z-10 flex-grow flex flex-col justify-center">
-        <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 lg:gap-8">
+      <div className="w-full px-6 md:pl-[calc(3rem+80px)] md:pr-12 lg:pl-[calc(8rem+80px)] lg:pr-32 xl:pl-[calc(12rem+80px)] xl:pr-48 relative z-10 flex-grow flex flex-col justify-center">
+        <div className="w-full mx-auto flex flex-col gap-6 lg:gap-8">
 
           {/* Top Section: Intro and Contact */}
           <div className="w-full flex flex-col text-left">
@@ -114,7 +114,7 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <div className="flex items-center justify-between gap-3 mb-3 w-full">
-                <p className="text-purple-400 font-bold tracking-[0.25em] uppercase text-xs md:text-sm leading-none m-0 flex items-center h-8">
+                <p className="text-purple-400 font-bold tracking-[0.25em] uppercase text-sm md:text-base leading-none m-0 flex items-center h-8">
                   Federico Osorio
                 </p>
                 {isMobile && setActivePanel && (
@@ -130,14 +130,14 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
                   </motion.button>
                 )}
               </div>
-              <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white mb-5 tracking-tight leading-tight">
+              <h1 className="text-5xl md:text-6xl xl:text-7xl font-extrabold text-white mb-6 tracking-tighter leading-[1.05]">
                 Full Stack{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400">
                   Developer
                 </span>
               </h1>
 
-              <p className="text-base md:text-lg text-slate-300 leading-relaxed mb-6 font-light text-justify">
+              <p className="text-sm md:text-base xl:text-lg text-slate-300 leading-relaxed mb-8 font-light max-w-[55ch]">
                 {t("main.specialization")}
               </p>
 
@@ -177,18 +177,18 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
 
           {/* Bottom Section: Reserved Outer Area with Flexible 1/2 Row Card */}
           <div className="w-full flex flex-col gap-3 min-h-[180px] md:min-h-[190px] flex-none justify-start">
-            <div className="flex items-center justify-between gap-3 flex-none">
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+            <div className="flex flex-wrap items-center justify-between gap-3 flex-none">
+              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500 hidden sm:block">
                 {t("main.techStack")}
               </h3>
 
               {/* Category Pills / Navigation Tabs */}
-              <div className="flex items-center gap-1.5 md:gap-2">
+              <div className="flex items-center gap-2 md:gap-3">
                 {techCategories.map((cat, idx) => (
                   <button
                     key={cat.id}
                     onClick={() => setTechIndex(idx)}
-                    className={`px-3 py-1 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider transition-all border cursor-pointer ${
+                    className={`px-4 py-1.5 rounded-md text-xs md:text-[13px] font-bold uppercase tracking-wider transition-all border cursor-pointer ${
                       techIndex === idx
                         ? cat.activeTabBg
                         : "bg-slate-900/30 text-slate-400 border-slate-800/60 hover:text-slate-200 hover:border-slate-700"
@@ -211,29 +211,6 @@ const Main: React.FC<MainProps> = ({ setActivePanel, isMobile = false }) => {
                   transition={{ duration: 0.2, ease: "linear" }}
                   className={`p-4 md:p-5 rounded-2xl bg-slate-900/40 backdrop-blur-md border ${techCategories[techIndex].borderColor} transition-colors shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 group w-full h-auto`}
                 >
-                  <div className="flex items-center justify-between flex-none">
-                    <span className="font-bold text-sm text-slate-200 tracking-wide">
-                      {techCategories[techIndex].label}
-                    </span>
-
-                    {/* Navigation Arrow buttons */}
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        onClick={() => setTechIndex((prev) => (prev === 0 ? techCategories.length - 1 : prev - 1))}
-                        className="w-7 h-7 rounded-lg bg-slate-800/40 hover:bg-slate-700/60 text-slate-400 hover:text-white flex items-center justify-center transition-all border border-slate-700/50 cursor-pointer"
-                        aria-label="Previous category"
-                      >
-                        <i className="fa-solid fa-chevron-left text-[10px]" />
-                      </button>
-                      <button
-                        onClick={() => setTechIndex((prev) => (prev === techCategories.length - 1 ? 0 : prev + 1))}
-                        className="w-7 h-7 rounded-lg bg-slate-800/40 hover:bg-slate-700/60 text-slate-400 hover:text-white flex items-center justify-center transition-all border border-slate-700/50 cursor-pointer"
-                        aria-label="Next category"
-                      >
-                        <i className="fa-solid fa-chevron-right text-[10px]" />
-                      </button>
-                    </div>
-                  </div>
 
                   {renderSkillsRow(techCategories[techIndex].skills)}
                 </motion.div>

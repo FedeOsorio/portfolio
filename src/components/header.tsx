@@ -7,12 +7,11 @@ const Header = () => {
 
     return (
         <header className="relative w-full z-50 flex-none border-b border-slate-700/50 bg-slate-950/70 backdrop-blur-xl">
-            <div className="container mx-auto flex py-4 px-5 justify-between items-center">
+            <div className="w-full flex py-4 px-6 md:pl-[calc(3rem+80px)] md:pr-[calc(3rem+12px)] lg:pl-[calc(8rem+80px)] lg:pr-[calc(8rem+12px)] xl:pl-[calc(12rem+80px)] xl:pr-[calc(12rem+12px)] justify-between items-center">
                 <div className="flex title-font font-medium items-center text-white">
-                    <h2 className="rounded-xl text-4xl">FO</h2>
                     <div className="flex flex-col">
-                        <span className="ml-3 text-xl leading-6">Federico</span>
-                        <span className="ml-3 text-xl leading-6">Osorio</span>
+                        <span className="text-xl leading-6 font-bold">Federico</span>
+                        <span className="text-xl leading-6 font-bold">Osorio</span>
                     </div>
                     <div className="hidden md:flex flex-col ml-6 pl-6 border-l border-slate-700/50 justify-center mt-1">
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400 font-bold tracking-widest text-xs uppercase">Full Stack Developer</span>

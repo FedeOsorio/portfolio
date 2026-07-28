@@ -128,4 +128,29 @@ html, body {
   to {
     stroke-dashoffset: -2380;
   }
+}
+
+/* Estilos globales para la barra de scroll */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent; /* Thumb, Track */
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.4); /* slate-900 transparent */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155; /* slate-700 (azul oscuro del sitio) */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569; /* slate-600 */
 }
