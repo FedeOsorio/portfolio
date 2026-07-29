@@ -90,6 +90,12 @@ const translations = {
           problem: "Aprender los silabarios japoneses (Hiragana y Katakana) es el primer gran obstáculo para cualquier estudiante de japonés. Los métodos tradicionales basados únicamente en repetición visual suelen ser tediosos y no fomentan una retención sólida a largo plazo.",
           solution: "Kana Love transforma el aprendizaje en una experiencia gamificada e interactiva. Incluye lecciones estructuradas, práctica de trazos interactiva en pantalla y un sistema de cuestionarios dinámicos que se adaptan al progreso del usuario para asegurar una memorización efectiva."
         },
+        {
+          title: "A.S.T.A. Rental",
+          description: "SaaS B2B de Gestión Inmobiliaria con arquitectura multi-tenant. Incluye manejo de propiedades, contratos inteligentes, pagos automatizados y un Agente de IA integrado con la API de Meta para envíos de WhatsApp y avisos de mora.",
+          problem: "Las agencias inmobiliarias y propietarios independientes a menudo carecen de sistemas centralizados para gestionar contratos, inquilinos y cobros, llevando a procesos manuales y propensos a errores.",
+          solution: "A.S.T.A. Rental ofrece una solución integral segura que automatiza el seguimiento de pagos y generación de contratos. Su diferencial es el Agente IA que automatiza la comunicación con inquilinos vía WhatsApp (Meta API) para cobranzas y avisos de mora."
+        }
       ]
     },
   },
@@ -173,6 +179,12 @@ const translations = {
           problem: "Learning the Japanese syllabaries (Hiragana and Katakana) is the first major hurdle for any Japanese student. Traditional methods based solely on visual repetition are often tedious and do not foster solid long-term retention.",
           solution: "Kana Love turns learning into a gamified and interactive experience. It features structured lessons, interactive on-screen stroke practice, and a dynamic quiz system that adapts to user progress to ensure effective memorization."
         },
+        {
+          title: "A.S.T.A. Rental",
+          description: "B2B SaaS Property Management Platform featuring multi-tenant architecture, smart contracts, automated payments, and an AI Agent integrated with Meta API for WhatsApp messaging and late fee notices.",
+          problem: "Real estate agencies and independent landlords often lack centralized systems to manage contracts, renters, and collections, leading to manual and error-prone processes.",
+          solution: "A.S.T.A. Rental provides a secure, comprehensive solution that automates payment tracking and contract generation. Its core feature is an AI Agent that automates tenant communications via WhatsApp (Meta API) for collections and late fee notices."
+        }
       ]
     },
   }

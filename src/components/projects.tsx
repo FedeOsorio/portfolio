@@ -6,6 +6,14 @@ import ProjectDetails from "./ProjectDetails";
 
 const projectsData = [
   {
+    id: 10,
+    type: "individual",
+    image: "img/asta-rental.jpg",
+    link: "https://github.com/fedeosorio",
+    github: "https://github.com/FedeOsorio/asta-rental",
+    subtitle: "Next.js 14 - Node.js - Drizzle - PostgreSQL",
+  },
+  {
     id: 9,
     type: "individual",
     images: [
@@ -333,6 +341,20 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
                       <i className="fa-solid fa-external-link-alt text-[10px]" />
                     </a>
                     
+                    {/* @ts-ignore - Adding dynamic property */}
+                    {project.github && (
+                      <a
+                        /* @ts-ignore */
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-2 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-xs font-semibold rounded transition-all border border-slate-700/60 flex items-center justify-center"
+                        title="GitHub Repository"
+                      >
+                        <i className="fa-brands fa-github text-sm" />
+                      </a>
+                    )}
+                    
                     {project.demo && (
                       <a
                         href={project.demo}
@@ -497,6 +519,20 @@ const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActi
                         <span>{t("projects.viewProject")}</span>
                         <i className="fa-solid fa-external-link-alt text-[10px]" />
                       </a>
+
+                      {/* @ts-ignore */}
+                      {currentProject.github && (
+                        <a
+                          /* @ts-ignore */
+                          href={currentProject.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2.5 bg-slate-800/50 border border-slate-700/60 text-slate-300 hover:bg-slate-700/60 hover:text-white text-xs md:text-sm font-semibold rounded flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer"
+                          title="GitHub Repository"
+                        >
+                          <i className="fa-brands fa-github text-lg" />
+                        </a>
+                      )}
                       
                       {currentProject.demo && (
                         <a
