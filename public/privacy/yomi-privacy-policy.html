@@ -56,6 +56,13 @@
             font-size: 1.5em;
         }
         
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
         p {
             margin-bottom: 15px;
             text-align: justify;
@@ -73,6 +80,14 @@
             background-color: #e8f8f5;
             padding: 15px;
             border-left: 4px solid #27ae60;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .minor-note {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
             margin: 20px 0;
             border-radius: 4px;
         }
@@ -144,7 +159,7 @@
         
         <h2>1. Información que Recopilamos</h2>
         
-        <h3 style="color: #34495e; margin-top: 20px;">1.1 Datos que NO Recopilamos</h3>
+        <h3>1.1 Datos que NO Recopilamos</h3>
         <div class="highlight">
             <strong>✓ Yomi NO recopila, NO procesa, y NO transmite datos personales a servidores remotos.</strong>
         </div>
@@ -169,7 +184,7 @@
             <li>Cualquier información financiera o de pago</li>
         </ul>
         
-        <h3 style="color: #34495e; margin-top: 20px;">1.2 Almacenamiento Local Únicamente</h3>
+        <h3>1.2 Almacenamiento Local Únicamente</h3>
         <p>
             Todos tus datos se almacenan <strong>exclusivamente en tu dispositivo</strong> utilizando SQLite, 
             una base de datos local que funciona sin necesidad de conexión a internet.
@@ -200,7 +215,46 @@
             las funcionalidades de la aplicación tal como las diseñaste.
         </p>
         
-        <h2>3. Permisos de la Aplicación</h2>
+        <h2>3. Búsquedas en Diccionarios Externos (Jisho.org)</h2>
+        
+        <div class="minor-note">
+            <strong>⚠️ Nota sobre búsquedas opcionales</strong>
+        </div>
+        
+        <h3>3.1 Funcionalidad de Búsqueda</h3>
+        <p>
+            <span class="app-name">Yomi</span> incluye una función <strong>opcional</strong> de búsqueda de palabras 
+            en diccionarios en línea para obtener definiciones adicionales y ejemplos. 
+            Esta funcionalidad utiliza <strong>Jisho.org</strong>, un diccionario japonés público y gratuito.
+        </p>
+        
+        <h3>3.2 Qué Se Transmite</h3>
+        <p>
+            Cuando utilizas la función de búsqueda:
+        </p>
+        <ul>
+            <li>Solo se transmite <strong>la palabra que buscas</strong> a Jisho.org</li>
+            <li>No se envía información personal identificable</li>
+            <li>No se envía historial de búsquedas anteriores</li>
+            <li>No se envía información del dispositivo</li>
+        </ul>
+        
+        <h3>3.3 Política de Jisho.org</h3>
+        <p>
+            Jisho.org es un servicio público independiente. Para más información sobre su política de privacidad, 
+            visita: <a href="https://jisho.org/" target="_blank">jisho.org</a>
+        </p>
+        <p>
+            Es importante notar que:
+        </p>
+        <ul>
+            <li>Esta función es <strong>completamente opcional</strong></li>
+            <li>Puedes usar <span class="app-name">Yomi</span> sin hacer ninguna búsqueda</li>
+            <li>Las búsquedas <strong>no se almacenan</strong> en tu dispositivo (solo se usan para la consulta)</li>
+            <li>Jisho.org no comparte datos con <span class="app-name">Yomi</span></li>
+        </ul>
+        
+        <h2>4. Permisos de la Aplicación</h2>
         <p>
             Si <span class="app-name">Yomi</span> solicita permisos en tu dispositivo, estos se usan 
             <strong>únicamente para funcionalidades esenciales</strong> y <strong>no para recopilar datos personales</strong>.
@@ -209,7 +263,7 @@
             Siempre puedes revisar y controlar los permisos de la aplicación a través de la configuración de tu dispositivo.
         </p>
         
-        <h2>4. Seguridad de Datos</h2>
+        <h2>5. Seguridad de Datos</h2>
         <div class="important">
             <strong>Tu seguridad es nuestra prioridad</strong>
         </div>
@@ -219,8 +273,8 @@
         </p>
         <ul>
             <li><strong>Control total:</strong> Tienes control completo sobre tus datos</li>
-            <li><strong>Sin transmisión:</strong> Tu información nunca viaja a través de internet</li>
-            <li><strong>Sin terceros:</strong> No hay riesgo de que terceros accedan a tus datos</li>
+            <li><strong>Sin transmisión:</strong> Tu información nunca viaja a través de internet (excepto búsquedas opcionales)</li>
+            <li><strong>Sin terceros:</strong> No hay riesgo de que terceros accedan a tus datos personales</li>
             <li><strong>Protección del SO:</strong> Datos protegidos por la seguridad del sistema operativo</li>
             <li><strong>Sin copias de seguridad en la nube:</strong> No hay sincronización automática</li>
         </ul>
@@ -230,35 +284,35 @@
             es compartida entre tú y tu proveedor de sistema operativo.
         </p>
         
-        <h2>5. Derechos del Usuario</h2>
+        <h2>6. Derechos del Usuario</h2>
         <p>
             Tienes los siguientes derechos respecto a tu información:
         </p>
         
-        <h3 style="color: #34495e; margin-top: 20px;">5.1 Derecho de Acceso</h3>
+        <h3>6.1 Derecho de Acceso</h3>
         <p>
             Puedes acceder a todos tus datos en cualquier momento directamente en la aplicación, 
             ya que se almacenan en tu dispositivo.
         </p>
         
-        <h3 style="color: #34495e; margin-top: 20px;">5.2 Derecho de Rectificación</h3>
+        <h3>6.2 Derecho de Rectificación</h3>
         <p>
             Puedes modificar o actualizar cualquier dato en cualquier momento dentro de la aplicación.
         </p>
         
-        <h3 style="color: #34495e; margin-top: 20px;">5.3 Derecho de Eliminación</h3>
+        <h3>6.3 Derecho de Eliminación</h3>
         <p>
             Puedes eliminar cualquier dato o toda tu información del dispositivo en cualquier momento. 
             No hay sincronización remota que impida la eliminación.
         </p>
         
-        <h3 style="color: #34495e; margin-top: 20px;">5.4 Derecho a la Portabilidad</h3>
+        <h3>6.4 Derecho a la Portabilidad</h3>
         <p>
             Como tus datos se almacenan en SQLite local, tienes acceso directo a ellos y puedes 
             exportarlos o transferirlos según sea necesario.
         </p>
         
-        <h2>6. Terceros y Servicios Externos</h2>
+        <h2>7. Terceros y Servicios Externos</h2>
         <p>
             <span class="app-name">Yomi</span> <strong>no utiliza</strong>:
         </p>
@@ -272,10 +326,11 @@
         </ul>
         
         <p>
-            Por lo tanto, <strong>no compartimos datos con terceros</strong> porque no recopilamos datos que compartir.
+            La única excepción es <strong>Jisho.org</strong>, que se usa únicamente para búsquedas de palabras 
+            opcionales y sin propósitos de recopilación de datos.
         </p>
         
-        <h2>7. Menores de Edad</h2>
+        <h2>8. Menores de Edad</h2>
         <p>
             <span class="app-name">Yomi</span> cumple con las regulaciones de protección de menores, incluyendo:
         </p>
@@ -298,7 +353,7 @@
             <li>Mantengan el dispositivo actualizado</li>
         </ul>
         
-        <h2>8. Conformidad Legal</h2>
+        <h2>9. Conformidad Legal</h2>
         <p>
             Esta política de privacidad cumple con regulaciones internacionales de protección de datos:
         </p>
@@ -316,7 +371,7 @@
             cumple automáticamente con todas estas regulaciones.
         </p>
         
-        <h2>9. Política de Google Play</h2>
+        <h2>10. Política de Google Play</h2>
         <div class="important">
             <strong>Cumplimiento con Google Play Store</strong>
         </div>
@@ -325,7 +380,7 @@
             <span class="app-name">Yomi</span> cumple con las políticas de Google Play Store, incluyendo:
         </p>
         
-        <h3 style="color: #34495e; margin-top: 20px;">9.1 Transmisión de Datos Personales</h3>
+        <h3>10.1 Transmisión de Datos Personales</h3>
         <p>
             La aplicación <strong>no transmite datos personales del dispositivo</strong> a través de:
         </p>
@@ -335,7 +390,7 @@
             <li>Cualquier conexión a internet</li>
         </ul>
         
-        <h3 style="color: #34495e; margin-top: 20px;">9.2 Política de Privacidad Transparente</h3>
+        <h3>10.2 Política de Privacidad Transparente</h3>
         <p>
             Esta política de privacidad es:
         </p>
@@ -346,13 +401,13 @@
             <li><strong>Honesta:</strong> No intenta ocultar la recopilación de datos</li>
         </ul>
         
-        <h3 style="color: #34495e; margin-top: 20px;">9.3 Consentimiento</h3>
+        <h3>10.3 Consentimiento</h3>
         <p>
             Como no recopilamos datos, no requerimos consentimiento previo. 
             Puedes usar <span class="app-name">Yomi</span> con confianza sin preocuparte por tu privacidad.
         </p>
         
-        <h3 style="color: #34495e; margin-top: 20px;">9.4 Derechos del Usuario</h3>
+        <h3>10.4 Derechos del Usuario</h3>
         <p>
             Los usuarios pueden:
         </p>
@@ -363,7 +418,7 @@
             <li>Acceder a su información almacenada localmente</li>
         </ul>
         
-        <h2>10. Cambios en Esta Política</h2>
+        <h2>11. Cambios en Esta Política</h2>
         <p>
             Nos reservamos el derecho de actualizar esta política de privacidad en cualquier momento 
             para reflejar cambios en nuestras prácticas, tecnología o requisitos legales.
@@ -382,7 +437,7 @@
             que aceptas los términos de la política actualizada.
         </p>
         
-        <h2>11. Contacto y Soporte</h2>
+        <h2>12. Contacto y Soporte</h2>
         <div class="contact-info">
             <h3 style="margin-top: 0;">¿Preguntas sobre tu privacidad?</h3>
             <p>
@@ -391,12 +446,12 @@
                 puedes contactarnos de la siguiente manera:
             </p>
             <ul>
-                <li><strong>GitHub:</strong> <a href="https://github.com/FedeOsorio/portfolio" target="_blank">FedeOsorio/portfolio</a></li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/FedeOsorio/Yomi" target="_blank">FedeOsorio/Yomi</a></li>
                 <li><strong>Google Play:</strong> Sección de comentarios en la página de la aplicación</li>
             </ul>
         </div>
         
-        <h2>12. Responsabilidad del Usuario</h2>
+        <h2>13. Responsabilidad del Usuario</h2>
         <p>
             Como usuario, tienes responsabilidades importantes:
         </p>
