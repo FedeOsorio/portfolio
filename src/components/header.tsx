@@ -3,37 +3,90 @@ import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const Header = () => {
-    const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
-    return (
-        <header className="relative w-full z-50 flex-none border-b border-slate-700/50 bg-slate-950/70 backdrop-blur-xl">
-            <div className="w-full flex py-4 px-6 md:pl-[calc(3rem+80px)] md:pr-[calc(3rem+12px)] lg:pl-[calc(8rem+80px)] lg:pr-[calc(8rem+12px)] xl:pl-[calc(12rem+80px)] xl:pr-[calc(12rem+12px)] justify-between items-center">
-                <div className="flex title-font font-medium items-center text-white">
-                    <div className="flex flex-col">
-                        <span className="text-xl leading-6 font-bold">Federico</span>
-                        <span className="text-xl leading-6 font-bold">Osorio</span>
-                    </div>
-                    <div className="hidden md:flex flex-col ml-6 pl-6 border-l border-slate-700/50 justify-center mt-1">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400 font-bold tracking-widest text-xs uppercase">Full Stack Developer</span>
-                    </div>
-                </div>
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const headerOffset = 65;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
 
-                <div className="flex items-center bg-slate-800/60 rounded p-1 border border-slate-700/40 w-24 justify-center transition-all shadow-md">
-                    <button
-                        onClick={() => setLanguage("es")}
-                        className={`flex-1 py-1 text-xs font-bold rounded transition-all cursor-pointer ${language === "es" ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm" : "text-slate-400 hover:text-white border border-transparent"}`}
-                    >
-                        ES
-                    </button>
-                    <button
-                        onClick={() => setLanguage("en")}
-                        className={`flex-1 py-1 text-xs font-bold rounded transition-all cursor-pointer ${language === "en" ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm" : "text-slate-400 hover:text-white border border-transparent"}`}
-                    >
-                        EN
-                    </button>
-                </div>
-            </div>
-        </header>
-    );
+  return (
+    <header className="fixed top-0 left-0 w-full z-50 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl transition-all">
+      <div className="w-full flex py-3 px-6 md:px-[8.33vw] justify-between items-center">
+        {/* Brand / Name */}
+        <button
+          onClick={() => scrollTo("home")}
+          className="flex items-center gap-4 text-left text-white group cursor-pointer"
+        >
+          <div className="flex flex-col">
+            <span className="text-lg md:text-xl leading-tight font-extrabold tracking-tight group-hover:text-purple-300 transition-colors">
+              Federico Osorio
+            </span>
+          </div>
+          <div className="hidden sm:flex flex-col pl-4 border-l border-slate-800 justify-center">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400 font-bold tracking-widest text-[11px] uppercase">
+              {t("main.role")}
+            </span>
+          </div>
+        </button>
+
+        {/* Navigation and Language Switcher */}
+        <div className="flex items-center gap-4 md:gap-6">
+          <nav className="hidden sm:flex items-center gap-5 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <button
+              onClick={() => scrollTo("home")}
+              className="hover:text-purple-300 transition-colors cursor-pointer"
+            >
+              {language === "es" ? "Inicio" : "Home"}
+            </button>
+            <button
+              onClick={() => scrollTo("projects")}
+              className="hover:text-teal-300 transition-colors cursor-pointer"
+            >
+              {language === "es" ? "Proyectos" : "Projects"}
+            </button>
+          </nav>
+
+          <div className="flex items-center bg-slate-900/80 rounded-full p-1 border border-slate-800 w-24 justify-center shadow-inner">
+            <button
+              onClick={() => setLanguage("es")}
+              className={`flex-1 py-1 text-xs font-bold rounded-full transition-all cursor-pointer ${
+                language === "es"
+                  ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm"
+                  : "text-slate-400 hover:text-white border border-transparent"
+              }`}
+            >
+              ES
+            </button>
+            <button
+              onClick={() => setLanguage("en")}
+              className={`flex-1 py-1 text-xs font-bold rounded-full transition-all cursor-pointer ${
+                language === "en"
+                  ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm"
+                  : "text-slate-400 hover:text-white border border-transparent"
+              }`}
+            >
+              EN
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Neon Beam traveling border at bottom of header */}
+      <div className="absolute bottom-0 left-0 w-full h-[2px] overflow-hidden pointer-events-none z-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/15 via-blue-500/15 to-teal-500/15" />
+        <div className="neon-horizontal-beam" />
+      </div>
+    </header>
+  );
 };
+
 export default Header;

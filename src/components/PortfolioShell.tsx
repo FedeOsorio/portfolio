@@ -1,174 +1,57 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useLanguage } from "@/context/LanguageContext";
-import PanelTab from "./PanelTab";
+import React from "react";
+import Header from "./header";
 import Main from "./main";
 import Projects from "./projects";
-import Header from "./header";
+import { useLanguage } from "@/context/LanguageContext";
 
 const PortfolioShell = () => {
-  const { t, language } = useLanguage();
-  const [activePanel, setActivePanel] = useState<"home" | "projects">("home");
-  const [isMobile, setIsMobile] = useState(false);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) return;
-    const updateDimensions = () => {
-      if (containerRef.current) {
-        setDimensions({
-          width: containerRef.current.clientWidth,
-          height: containerRef.current.clientHeight,
-        });
-      }
-    };
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => {
-      window.removeEventListener("resize", updateDimensions);
-    };
-  }, [isMobile]);
+  const { t } = useLanguage();
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden">
+    <div className="w-full min-h-screen flex flex-col relative text-slate-100 selection:bg-purple-500/30 selection:text-purple-200">
+      {/* Background ambient lighting effects (Apple-like subtle glow) */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-purple-600/10 rounded-full blur-[140px]" />
+        <div className="absolute top-[40%] -left-40 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[160px]" />
+        <div className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[140px]" />
+      </div>
+
+      {/* Sticky Apple-like Glass Header */}
       <Header />
-      {isMobile ? (
-        <div className="w-full flex-1 overflow-hidden relative">
-          <AnimatePresence mode="wait">
-            {activePanel === "home" ? (
-              <motion.div
-                key="home"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="w-full h-full overflow-y-auto flex flex-col"
-              >
-                <Main setActivePanel={setActivePanel} isMobile={true} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="projects"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="w-full h-full overflow-y-auto flex flex-col"
-              >
-                <Projects isActive={true} isMobile={true} setActivePanel={setActivePanel} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+
+      {/* Main Single-Scroll Experience */}
+      <main className="w-full flex-1 flex flex-col relative z-10">
+        {/* Section 1: Hero Home */}
+        <section
+          id="home"
+          className="w-full pt-16 flex flex-col items-center scroll-mt-16"
+        >
+          <Main />
+        </section>
+
+        {/* Section 2: Projects Showcase */}
+        <section
+          id="projects"
+          className="w-full bg-gradient-to-b from-transparent via-slate-950/40 to-slate-950/80 scroll-mt-16"
+        >
+          <Projects />
+        </section>
+      </main>
+
+      {/* Apple-style Footer */}
+      <footer className="w-full border-t border-slate-800/60 bg-slate-950/60 backdrop-blur-md py-8 px-6 md:px-[8.33vw] relative z-10">
+        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-300">Federico Osorio</span>
+            <span>•</span>
+            <span>{t("main.role")}</span>
+          </div>
+          <p className="font-light">
+            {t("main.madeWith")}
+          </p>
         </div>
-      ) : (
-        <div ref={containerRef} className="flex w-full flex-1 overflow-hidden flex-row relative">
-          
-          {/* HOME PANEL CONTAINER (Desktop) */}
-          <motion.div
-            animate={{
-              width: activePanel === "home" ? "calc(100% - 80px)" : "80px",
-            }}
-            transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }}
-            className="relative overflow-hidden flex-shrink-0 h-full"
-          >
-            <div className="absolute top-0 left-0 w-[calc(100vw-80px)] h-full">
-              <div className="w-full h-full overflow-y-auto flex flex-col">
-                 <Main setActivePanel={setActivePanel} isMobile={false} />
-              </div>
-            </div>
-            
-            {/* Home Tab Overlay */}
-            <div 
-               className={`absolute top-0 right-0 w-[80px] h-full z-20 transition-opacity duration-300 ${activePanel === "home" ? "opacity-0 delay-0 pointer-events-none" : "opacity-100 delay-300"}`}
-            >
-               <PanelTab
-                 label={t("panels.home")}
-                 onClick={() => setActivePanel("home")}
-                 position="left"
-                 isActive={activePanel === "home"}
-               />
-            </div>
-          </motion.div>
-
-          {/* PROJECTS PANEL CONTAINER (Desktop) */}
-          <motion.div
-            animate={{
-              width: activePanel === "projects" ? "calc(100% - 80px)" : "80px",
-            }}
-            transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }}
-            className="relative overflow-hidden flex-shrink-0 h-full"
-          >
-            <div className="absolute top-0 left-0 w-[calc(100vw-80px)] h-full">
-              <div className="w-full h-full overflow-y-auto flex flex-col">
-                 <Projects isActive={activePanel === "projects"} isMobile={false} setActivePanel={setActivePanel} />
-              </div>
-            </div>
-            
-            {/* Projects Tab Overlay */}
-            <div 
-               className={`absolute top-0 left-0 w-[80px] h-full z-20 transition-opacity duration-300 ${activePanel === "projects" ? "opacity-0 delay-0 pointer-events-none" : "opacity-100 delay-300"}`}
-            >
-               <PanelTab
-                 label={t("panels.projects")}
-                 onClick={() => setActivePanel("projects")}
-                 position="right"
-                 isActive={activePanel === "projects"}
-                 shouldPulse={activePanel === "home"}
-               />
-            </div>
-          </motion.div>
-
-          {/* Neon Beam Border animation (Desktop, activePanel === "home" only) */}
-          {activePanel === "home" && dimensions.width > 0 && (
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-30">
-              <defs>
-                <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#c084fc" />
-                  <stop offset="50%" stopColor="#60a5fa" />
-                  <stop offset="100%" stopColor="#2dd4bf" />
-                </linearGradient>
-              </defs>
-              
-              <path
-                d={`M 0 1 L ${dimensions.width} 1`}
-                fill="none"
-                stroke="url(#neonGradient)"
-                strokeWidth="1.5"
-                className="opacity-15"
-              />
-              <path
-                d={`M ${dimensions.width - 80} 1 L ${dimensions.width - 80} ${dimensions.height}`}
-                fill="none"
-                stroke="url(#neonGradient)"
-                strokeWidth="1.5"
-                className="opacity-15"
-              />
-
-              {/* Animated beam */}
-              <path
-                d={`M 0 1 L ${dimensions.width - 80} 1 L ${dimensions.width - 80} ${dimensions.height}`}
-                fill="none"
-                stroke="url(#neonGradient)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                className="neon-beam-path"
-                style={{
-                  filter: "drop-shadow(0 0 3px #c084fc) drop-shadow(0 0 8px #60a5fa)",
-                }}
-              />
-            </svg>
-          )}
-        </div>
-      )}
+      </footer>
     </div>
   );
 };

@@ -23,6 +23,18 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    margin: 0;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+  margin: 0;
+}
+
+.font-graphik {
+  font-family: 'Graphik', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
 }
 
 :root {
@@ -41,15 +53,26 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
+  font-family: 'Graphik', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif !important;
   box-sizing: border-box;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, #131b2e 0%, #080f21 60%, #010204 100%) !important;
-  background-attachment: scroll !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  height: 100vh;
-  overflow: hidden;
+  background: linear-gradient(to bottom, #0f172a 0%, #0a0f1d 40%, #050811 75%, #020408 100%) !important;
+  background-attachment: fixed !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 /* Estilos de paneles */
@@ -72,6 +95,7 @@ html, body {
   background: linear-gradient(to bottom, #a855f7 50%, #94a3b8 50%);
   background-size: 100% 200%;
   background-position: 0% 100%;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: background-position 0.4s ease-out;
@@ -127,6 +151,35 @@ html, body {
   }
   to {
     stroke-dashoffset: -2380;
+  }
+}
+
+/* Haz de luz neón horizontal para el Header */
+.neon-horizontal-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 280px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(192, 132, 252, 0.4) 30%,
+    #c084fc 60%,
+    #60a5fa 85%,
+    #2dd4bf 95%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 0 3px #c084fc) drop-shadow(0 0 8px #60a5fa);
+  animation: neon-travel-horizontal 3.5s linear infinite;
+}
+
+@keyframes neon-travel-horizontal {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100vw);
   }
 }
 

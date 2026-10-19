@@ -16,12 +16,14 @@ const translations = {
       projects: "Proyectos",
     },
     main: {
-      role: "Full Stack Developer",
+      heroTagline: "La solución que imaginas, es posible",
+      role: "Software Engineer",
       specialization: "4+ años en desarrollo profesional para banca digital, y construyendo diversos proyectos en diferentes tecnologías de manera independiente. Como profesional, mi enfoque es la seguridad de la información, la velocidad de respuesta y la escalabilidad.",
       techStack: "Tech Stack",
       contactTitle: "Contacto y redes",
       contactSubtitle: "Estoy abierto a nuevas oportunidades y colaboraciones.",
       madeWith: "Hecho con NextJS y Tailwind",
+      scrollDown: "Explorar proyectos",
     },
     projects: {
       title: "Proyectos Destacados",
@@ -105,12 +107,14 @@ const translations = {
       projects: "Projects",
     },
     main: {
-      role: "Full Stack Developer",
+      heroTagline: "The solution you imagine, is possible",
+      role: "Software Engineer",
       specialization: "4+ years of professional experience in digital banking development and building diverse projects across different technologies independently. As a professional, my focus is information security, high performance, and scalability.",
       techStack: "Tech Stack",
       contactTitle: "Contact & Socials",
       contactSubtitle: "Open to new opportunities and collaborations.",
       madeWith: "Made with NextJS and Tailwind",
+      scrollDown: "Explore projects",
     },
     projects: {
       title: "Featured Projects",

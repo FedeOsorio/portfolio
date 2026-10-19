@@ -21,10 +21,10 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, itemInfo, onBa
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="w-full min-h-full flex flex-col pt-6 px-8 pb-12 md:pt-10 md:px-16 lg:px-32 xl:px-48 md:pb-16"
+        className="w-full min-h-full flex flex-col py-8 px-6 md:px-[8.33vw]"
       >
       {/* Top Bar / Breadcrumb */}
-      <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-800/80">
+      <div className="flex items-center justify-between pb-4 border-b border-slate-800/80">
         <div className="flex items-center gap-3 font-mono text-xs text-slate-400 uppercase tracking-widest">
           <button 
             onClick={onBack}
@@ -44,9 +44,9 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, itemInfo, onBa
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-1.5 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-[10px] md:text-xs font-semibold rounded transition-all border border-slate-700/60 uppercase tracking-wider"
+              className="flex items-center gap-1.5 px-4 py-1.5 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-[10px] md:text-xs font-semibold rounded transition-all border border-slate-700/60 uppercase tracking-wider"
             >
-              <i className="fa-solid fa-video mr-1.5" />
+              <i className="fa-solid fa-video" />
               {t("projects.demoVideo")}
             </a>
           )}
@@ -54,20 +54,20 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, itemInfo, onBa
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-1.5 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-[10px] md:text-xs font-semibold rounded transition-all shadow-md uppercase tracking-wider"
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-[10px] md:text-xs font-semibold rounded transition-all shadow-md uppercase tracking-wider"
           >
-            <i className="fa-solid fa-external-link-alt mr-1.5" />
+            <i className="fa-solid fa-external-link-alt" />
             {t("projects.viewProject")}
           </a>
         </div>
       </div>
 
       {/* Header Section */}
-      <div className="max-w-[75ch] mb-12">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+      <div className="w-full flex flex-col gap-3 py-8">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1]">
           {itemInfo.title}
         </h1>
-        <div className="font-mono text-sm md:text-base text-purple-400 mb-8 tracking-wide">
+        <div className="font-mono text-sm md:text-base text-purple-400 tracking-wide">
           {project.subtitle}
         </div>
         <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-light">
@@ -76,12 +76,12 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, itemInfo, onBa
       </div>
 
       {/* Main Content Layout */}
-      <div className="flex flex-col gap-12 border-t border-slate-800/80 pt-10">
+      <div className="flex flex-col gap-10 border-t border-slate-800/80 pt-8">
         
-        {/* Placeholder text blocks for Problem/Solution (In the future, you can feed rich data here) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div className="flex flex-col">
-            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest mb-4">
+        {/* Placeholder text blocks for Problem/Solution */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="flex flex-col gap-3">
+            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest">
               {t("projects.details.problemTitle")}
             </h3>
             <p className="text-slate-300 leading-relaxed text-sm md:text-base">
@@ -89,8 +89,8 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, itemInfo, onBa
             </p>
           </div>
           
-          <div className="flex flex-col">
-            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest mb-4">
+          <div className="flex flex-col gap-3">
+            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest">
               {t("projects.details.solutionTitle")}
             </h3>
             <p className="text-slate-300 leading-relaxed text-sm md:text-base">
@@ -101,8 +101,8 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, itemInfo, onBa
 
         {/* Image Gallery */}
         {images.length > 0 && (
-          <div className="flex flex-col gap-5">
-            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest mb-2">
+          <div className="flex flex-col gap-4">
+            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest">
               {t("projects.details.galleryTitle")}
             </h3>
             <div className={`grid gap-6 ${isMobileProject ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1 lg:grid-cols-2"}`}>

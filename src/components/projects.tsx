@@ -8,6 +8,7 @@ const projectsData = [
   {
     id: 10,
     type: "individual",
+    category: "web",
     image: "img/asta-rental.jpg",
     link: "https://github.com/fedeosorio",
     github: "https://github.com/FedeOsorio/asta-rental",
@@ -16,10 +17,11 @@ const projectsData = [
   {
     id: 9,
     type: "individual",
+    category: "mobile",
     images: [
       "img/proyectos/kanalove_1.jpg",
       "img/proyectos/kanalove_2.jpg",
-      "img/proyectos/kanalove_3.jpg"
+      "img/proyectos/kanalove_3.jpg",
     ],
     link: "https://play.google.com/store/apps/details?id=com.kuyi.kanalove",
     subtitle: "React Native - Expo - Firebase",
@@ -27,10 +29,11 @@ const projectsData = [
   {
     id: 0,
     type: "individual",
+    category: "mobile",
     images: [
       "img/proyectos/kanji_1.jpg",
       "img/proyectos/kanji_2.jpg",
-      "img/proyectos/kanji_3.jpg"
+      "img/proyectos/kanji_3.jpg",
     ],
     link: "https://play.google.com/store/apps/details?id=com.kuyi.kanjilove",
     subtitle: "React Native - Expo - Firebase",
@@ -38,6 +41,7 @@ const projectsData = [
   {
     id: 1,
     type: "individual",
+    category: "web",
     image: "img/asta.jpg",
     link: "https://asta-next.vercel.app/turnos",
     subtitle: "Next.js - PostgreSQL - NeonDB",
@@ -45,10 +49,11 @@ const projectsData = [
   {
     id: 2,
     type: "individual",
+    category: "mobile",
     images: [
       "img/proyectos/kuyi_1.jpg",
       "img/proyectos/kuyi_2.jpg",
-      "img/proyectos/kuyi_3.jpg"
+      "img/proyectos/kuyi_3.jpg",
     ],
     link: "https://play.google.com/store/apps/details?id=com.fedeosorio.KuYiApp",
     subtitle: "React Native - Expo - Firebase",
@@ -56,6 +61,7 @@ const projectsData = [
   {
     id: 3,
     type: "grupal",
+    category: "web",
     image: "img/ifts26.jpg",
     link: "https://ifts26.netlify.app/",
     subtitle: "Angular",
@@ -63,6 +69,7 @@ const projectsData = [
   {
     id: 4,
     type: "grupal",
+    category: "web",
     image: "img/esquinaLiteraria.jpg",
     link: "https://esquina-literaria.vercel.app/",
     subtitle: "React - Express - MongoDB",
@@ -70,6 +77,7 @@ const projectsData = [
   {
     id: 5,
     type: "grupal",
+    category: "web",
     image: "img/sad.jpg",
     link: "https://github.com/JuanPabloRomero00/SAD",
     subtitle: "React - Express - MongoDB",
@@ -77,6 +85,7 @@ const projectsData = [
   {
     id: 6,
     type: "legacy",
+    category: "web",
     image: "img/kirliaShop.jpg",
     link: "https://kirlia-shop.netlify.app/",
     subtitle: "Angular - Express - MongoDB",
@@ -84,14 +93,16 @@ const projectsData = [
   {
     id: 7,
     type: "grupal",
+    category: "web",
     image: "img/gestionDeHoras.jpg",
     link: "https://www.linkedin.com/feed/update/urn:li:activity:7087109171837308928/",
     subtitle: "Angular - Spring Boot - MySQL",
-    demo: "https://drive.google.com/file/d/1H2IHyVaOT5eUjUIk49yhFPDeXkB5vYHu/view?usp=drive_link"
+    demo: "https://drive.google.com/file/d/1H2IHyVaOT5eUjUIk49yhFPDeXkB5vYHu/view?usp=drive_link",
   },
   {
     id: 8,
     type: "legacy",
+    category: "web",
     image: "img/petShop.jpg",
     link: "https://fedeosorio.github.io/petShop/",
     subtitle: "React - Firebase",
@@ -103,595 +114,325 @@ const isMobileApp = (subtitle: string) => {
   return sub.includes("react native") || sub.includes("expo");
 };
 
-interface ProjectsProps {
-  isActive?: boolean;
-  isMobile?: boolean;
-  setActivePanel?: (panel: "home" | "projects") => void;
-}
+// Tarjeta Apple.com: Imagen a pantalla completa de la celda de la grilla
+const ProjectCard: React.FC<{
+  project: (typeof projectsData)[0];
+  itemInfo: { title: string; description: string };
+  onOpenDetails: (id: number) => void;
+  language: string;
+  t: (key: string) => any;
+}> = ({ project, itemInfo, onOpenDetails, language, t }) => {
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const images = project.images || (project.image ? [project.image] : []);
+  const isMobile = isMobileApp(project.subtitle);
 
-const Projects: React.FC<ProjectsProps> = ({ isActive, isMobile = false, setActivePanel }) => {
+  // Auto-rotar capturas si tiene más de una
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveImgIndex((prev) => (prev + 1) % images.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="relative w-full h-[310px] sm:h-[340px] md:h-[370px] lg:h-[395px] rounded-xl md:rounded-2xl overflow-hidden group bg-slate-900 transition-all duration-500 shadow-2xl flex flex-col justify-between p-4 sm:p-5 md:p-6 text-center">
+      {/* Background Image: Maximize 100% of the grid cell without cropping out of bounds */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img
+          src={images[activeImgIndex] || images[0]}
+          alt={`${itemInfo.title} preview`}
+          className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+        />
+        {/* Apple-style gradient vignette for clear headline and action button contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/35 to-slate-950/90 group-hover:via-slate-950/25 transition-colors duration-500" />
+      </div>
+
+      {/* Top Header: Category, Title and Subtitle */}
+      <div className="flex flex-col items-center gap-1 relative z-10">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest backdrop-blur-md border border-white/10 bg-slate-950/60 text-slate-300 shadow-sm">
+          {isMobile
+            ? language === "es"
+              ? "App Móvil"
+              : "Mobile App"
+            : project.type === "grupal"
+            ? language === "es"
+              ? "Proyecto Grupal"
+              : "Team Project"
+            : "Web / SaaS"}
+        </div>
+
+        {/* Project Title (Apple headline) */}
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-snug drop-shadow-md">
+          {itemInfo.title}
+        </h3>
+
+        {/* Technologies Subtitle */}
+        <p className="font-mono text-[11px] sm:text-xs text-purple-300 font-semibold tracking-wide drop-shadow-sm">
+          {project.subtitle}
+        </p>
+
+        {/* Short Description */}
+        <p className="text-[11px] sm:text-xs text-slate-200 font-light max-w-md w-full text-center line-clamp-1 leading-relaxed drop-shadow-sm">
+          {itemInfo.description}
+        </p>
+
+        {/* Multi-image thumbnail dots for mobile apps */}
+        {images.length > 1 && (
+          <div className="flex items-center gap-1.5 pt-1 px-2 py-0.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/10">
+            {images.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                onClick={() => setActiveImgIndex(dotIdx)}
+                aria-label={`Ver imagen ${dotIdx + 1}`}
+                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                  activeImgIndex === dotIdx
+                    ? "bg-purple-400 w-3"
+                    : "bg-slate-500/80 hover:bg-slate-300"
+                }`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Bottom Actions: Apple-like Pill Buttons */}
+      <div className="flex flex-wrap items-center justify-center gap-2 relative z-10 pt-2">
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-1.5 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-all shadow-md hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] flex items-center gap-1.5"
+        >
+          <span>{t("projects.viewProject")}</span>
+          <i className="fa-solid fa-arrow-up-right-from-square text-[9px]" />
+        </a>
+
+        <button
+          onClick={() => onOpenDetails(project.id)}
+          className="px-4 py-1.5 rounded-full bg-slate-950/70 hover:bg-slate-900 text-slate-200 hover:text-white font-semibold text-xs backdrop-blur-md border border-white/20 hover:border-white/40 transition-all shadow-sm cursor-pointer"
+        >
+          <span>{t("projects.viewDetails")}</span>
+        </button>
+
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Repository"
+            className="w-8 h-8 rounded-full bg-slate-950/70 hover:bg-slate-900 text-slate-300 hover:text-white border border-white/20 hover:border-white/40 backdrop-blur-md flex items-center justify-center transition-all shadow-sm"
+            title="GitHub"
+          >
+            <i className="fa-brands fa-github text-xs" />
+          </a>
+        )}
+
+        {project.demo && (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Video Demo"
+            className="w-8 h-8 rounded-full bg-slate-950/70 hover:bg-slate-900 text-slate-300 hover:text-white border border-white/20 hover:border-white/40 backdrop-blur-md flex items-center justify-center transition-all shadow-sm"
+            title={t("projects.demoVideo")}
+          >
+            <i className="fa-solid fa-video text-[10px]" />
+          </a>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Projects: React.FC = () => {
   const { t, language } = useLanguage();
   const projectItems = t("projects.items") as { title: string; description: string }[];
-  const [projectType, setProjectType] = useState<"individual" | "grupal">("individual");
-  const [subType, setSubType] = useState<"mobile" | "web">("mobile");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [innerImageIndex, setInnerImageIndex] = useState(0);
-  const [showDetails, setShowDetails] = useState(false);
+  const [filter, setFilter] = useState<"all" | "mobile" | "web" | "grupal">("all");
+  const [page, setPage] = useState(0);
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
 
-  // Reset carousel to Kana Love when projects panel becomes inactive
-  useEffect(() => {
-    if (!isActive) {
-      setProjectType("individual");
-      setSubType("mobile");
-      setCurrentIndex(0);
-      setInnerImageIndex(0);
-      setShowDetails(false);
-    }
-  }, [isActive]);
-
-  // Determine available subtypes dynamically
-  const availableSubTypes = Array.from(
-    new Set(
-      projectsData
-        .filter(p => p.type === projectType)
-        .map(p => isMobileApp(p.subtitle) ? "mobile" : "web")
-    )
-  ) as ("mobile" | "web")[];
-
-  const filteredProjects = projectsData.filter(p => {
-    if (p.type !== projectType) return false;
-    if (projectType === "individual") {
-      const isMobile = isMobileApp(p.subtitle);
-      return subType === "mobile" ? isMobile : !isMobile;
-    }
+  const filteredProjects = projectsData.filter((p) => {
+    if (filter === "all") return true;
+    if (filter === "mobile") return isMobileApp(p.subtitle);
+    if (filter === "web") return !isMobileApp(p.subtitle) && p.type !== "grupal";
+    if (filter === "grupal") return p.type === "grupal" || p.type === "legacy";
     return true;
   });
 
-  // Reset indices when changing category or subtype or current project
+  // Reset page when category changes
   useEffect(() => {
-    const available = Array.from(
-      new Set(
-        projectsData
-          .filter(p => p.type === projectType)
-          .map(p => isMobileApp(p.subtitle) ? "mobile" : "web")
-      )
-    ) as ("mobile" | "web")[];
-    
-    if (available.length > 0 && !available.includes(subType)) {
-      setSubType(available[0]);
-    }
-    setCurrentIndex(0);
-    setInnerImageIndex(0);
-  }, [projectType]);
+    setPage(0);
+  }, [filter]);
 
+  const itemsPerPage = 4;
+  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+  const currentProjects = filteredProjects.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
+
+  // Manejar Escape para cerrar modal de detalles
   useEffect(() => {
-    setCurrentIndex(0);
-    setInnerImageIndex(0);
-  }, [subType]);
-
-  useEffect(() => {
-    setInnerImageIndex(0);
-  }, [currentIndex]);
-
-  const handleNext = () => {
-    if (filteredProjects.length === 0) return;
-    setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
-  };
-
-  const handlePrev = () => {
-    if (filteredProjects.length === 0) return;
-    setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
-  };
-
-  useEffect(() => {
-    if (!isActive) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") handleNext();
-      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "Escape") setSelectedProjectId(null);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [filteredProjects.length, isActive]);
+  }, []);
 
-  const currentProject = filteredProjects[currentIndex];
-  const currentItemInfo = currentProject ? (projectItems[currentProject.id] || {}) : { title: "", description: "" };
-
-  const currentImages = currentProject
-    ? (currentProject.images || (currentProject.image ? [currentProject.image] : []))
-    : [];
-  const currentImage = currentImages[innerImageIndex] || "";
-  const isMobileProject = currentProject ? isMobileApp(currentProject.subtitle) : false;
-
-  // Autoplay inner images slideshow (resets on manual selection or arrow click)
-  useEffect(() => {
-    if (!currentProject || !currentProject.images || currentProject.images.length <= 1) return;
-    const interval = setInterval(() => {
-      setInnerImageIndex(prev => (prev + 1) % currentProject.images!.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, [currentProject, currentIndex, innerImageIndex]);
-
-  const handleOpenDetails = (projectId: number) => {
-    setSelectedProjectId(projectId);
-    setShowDetails(true);
-  };
-
-  if (showDetails && selectedProjectId !== null) {
-    const selectedProject = projectsData.find(p => p.id === selectedProjectId);
-    const selectedItemInfo = selectedProject ? (projectItems[selectedProject.id] || { title: "", description: "" }) : { title: "", description: "" };
-    
-    if (selectedProject) {
-      return (
-        <div className="w-full flex-1 flex flex-col relative overflow-x-hidden">
-          <ProjectDetails 
-            project={selectedProject} 
-            itemInfo={selectedItemInfo}
-            onBack={() => setShowDetails(false)}
-            isMobileProject={isMobileApp(selectedProject.subtitle)}
-          />
-        </div>
-      );
-    }
-  }
+  const selectedProject = selectedProjectId !== null
+    ? projectsData.find((p) => p.id === selectedProjectId)
+    : null;
+  const selectedItemInfo = selectedProject
+    ? projectItems[selectedProject.id] || { title: "", description: "" }
+    : { title: "", description: "" };
 
   return (
-    <div className={`w-full flex-1 flex flex-col relative px-8 md:pl-16 md:pr-[calc(4rem+12px)] lg:pl-32 lg:pr-[calc(8rem+12px)] xl:pl-48 xl:pr-[calc(12rem+12px)] overflow-x-hidden
-      ${isMobile ? "justify-start py-6" : "justify-center py-8 md:py-12"}
-    `}>
-      {isMobile ? (
-        <div className="w-full flex flex-col gap-6 max-w-2xl mx-auto pb-12 pt-2">
-          <div className="flex items-center justify-between gap-3 mb-2 border-b border-slate-700/50 pb-3">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-none flex items-center h-8">
-              {t("projects.title")}
-            </h2>
-            {isMobile && setActivePanel && (
-              <motion.button
-                onClick={() => setActivePanel("home")}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded bg-purple-500/20 text-purple-300 hover:text-purple-200 border border-purple-500/30 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all hover:bg-purple-500/30 leading-none h-8 shadow-sm"
-              >
-                <i className="fa-solid fa-house text-[10px]" />
-                <span className="leading-none">{language === "es" ? "Inicio" : "Home"}</span>
-              </motion.button>
-            )}
-          </div>
-          
-          <div className="flex flex-col gap-6">
-            {projectsData.map((project) => {
-              const itemInfo = projectItems[project.id] || { title: "", description: "" };
-              const projectImages = project.images || (project.image ? [project.image] : []);
-              
-              return (
-                <div 
-                  key={project.id}
-                  className="rounded-2xl border border-slate-800/80 bg-slate-900/40 backdrop-blur-md p-5 flex flex-col gap-4 shadow-xl"
-                >
-                  {/* Card Header */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-start gap-2">
-                      <h3 className="text-xl font-bold text-white tracking-tight">
-                        {itemInfo.title}
-                      </h3>
-                      
-                      {/* Tag pill */}
-                      <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border flex-shrink-0
-                        ${project.type === "individual" 
-                          ? "bg-purple-500/10 text-purple-400 border-purple-500/20 shadow-[0_0_10px_rgba(168,85,247,0.15)]" 
-                          : project.type === "grupal"
-                            ? "bg-teal-500/10 text-teal-400 border-teal-500/20 shadow-[0_0_10px_rgba(20,184,166,0.15)]"
-                            : "bg-slate-800/40 text-slate-400 border-slate-700/50"
-                        }
-                      `}>
-                        {project.type === "individual" 
-                          ? t("projects.tags.individual") 
-                          : project.type === "grupal"
-                            ? t("projects.tags.grupal")
-                            : (language === "en" ? "Legacy Project" : "Proyecto Legacy")
-                        }
-                      </span>
-                    </div>
-                    
-                    <div className="text-xs text-slate-400 font-mono tracking-wide">
-                      {project.subtitle}
-                    </div>
-                  </div>
-                  
-                  {/* Screenshots gallery */}
-                  {projectImages.length > 0 && (
-                    <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory">
-                      {projectImages.map((imgUrl, idx) => (
-                        <div 
-                          key={idx} 
-                          className="flex-shrink-0 snap-center max-w-[85%] flex items-center justify-center"
-                        >
-                          <img 
-                            src={imgUrl} 
-                            alt={`${itemInfo.title} screenshot ${idx + 1}`}
-                            className="h-64 object-contain rounded-xl border border-slate-800/80 shadow-md bg-slate-950/20"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  
-                  {/* Description */}
-                  <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-light">
-                    {itemInfo.description}
-                  </p>
-                  
-                  {/* Buttons */}
-                  <div className="flex items-center gap-2.5 mt-2">
-                    <button
-                      onClick={() => handleOpenDetails(project.id)}
-                      className="flex-grow py-2 bg-slate-800/50 border border-slate-700/60 text-slate-300 hover:bg-slate-700/60 text-xs font-semibold rounded flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer"
-                    >
-                      <span>{t("projects.viewDetails")}</span>
-                    </button>
-                    
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-grow py-2 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-xs font-semibold rounded flex items-center justify-center gap-1.5 transition-all shadow-md"
-                    >
-                      <span>{t("projects.viewProject")}</span>
-                      <i className="fa-solid fa-external-link-alt text-[10px]" />
-                    </a>
-                    
-                    {/* @ts-ignore - Adding dynamic property */}
-                    {project.github && (
-                      <a
-                        /* @ts-ignore */
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-3 py-2 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-xs font-semibold rounded transition-all border border-slate-700/60 flex items-center justify-center"
-                        title="GitHub Repository"
-                      >
-                        <i className="fa-brands fa-github text-sm" />
-                      </a>
-                    )}
-                    
-                    {project.demo && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-xs font-semibold rounded transition-all border border-slate-700/60"
-                      >
-                        {t("projects.demoVideo")}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+    <div className="w-full flex flex-col pt-2 pb-3 sm:pb-4 px-6 md:px-[8.33vw]">
+      {/* Top Header: Compact and aligned top-left */}
+      <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3">
+        <div className="flex flex-col items-start text-left">
+          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            {t("projects.title")}
+          </h2>
         </div>
-      ) : (
-        <div className="w-full h-full relative z-10 flex-grow flex flex-col justify-center">
-        <div className="w-full relative">
-          
-          {/* Floating navigation arrows (Desktop only, active panel only, relative to max-w-6xl) */}
-          {isActive && filteredProjects.length > 1 && (
-            <>
+
+        {/* Category Filter Pills & 2x2 Page Controls */}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center p-1 bg-slate-900/80 backdrop-blur-md rounded-full border border-slate-800">
+            <button
+              onClick={() => setFilter("all")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                filter === "all"
+                  ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              {language === "es" ? "Todos" : "All"}
+            </button>
+            <button
+              onClick={() => setFilter("mobile")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                filter === "mobile"
+                  ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              {language === "es" ? "Apps Móviles" : "Mobile Apps"}
+            </button>
+            <button
+              onClick={() => setFilter("web")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                filter === "web"
+                  ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              Web / SaaS
+            </button>
+            <button
+              onClick={() => setFilter("grupal")}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                filter === "grupal"
+                  ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              {language === "es" ? "Grupales" : "Team"}
+            </button>
+          </div>
+
+          {/* Pagination buttons if more than 4 projects */}
+          {totalPages > 1 && (
+            <div className="flex items-center gap-1.5 bg-slate-900/80 p-1 rounded-full border border-slate-800">
               <button
-                onClick={handlePrev}
-                className="absolute -left-4 lg:-left-10 xl:-left-16 2xl:-left-24 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded bg-slate-900/60 border border-slate-800/80 hover:border-purple-500/50 hover:bg-slate-800/80 text-slate-400 hover:text-white transition-all backdrop-blur-md hidden lg:flex cursor-pointer shadow-lg"
-                aria-label="Previous project"
+                onClick={() => setPage((p) => Math.max(0, p - 1))}
+                disabled={page === 0}
+                aria-label="Página anterior"
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                  page === 0
+                    ? "text-slate-600 cursor-not-allowed"
+                    : "text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer"
+                }`}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
+                <i className="fa-solid fa-chevron-left text-xs" />
               </button>
-              
+              <span className="text-xs font-mono text-slate-400 px-2">
+                {page + 1}/{totalPages}
+              </span>
               <button
-                onClick={handleNext}
-                className="absolute -right-4 lg:-right-10 xl:-right-16 2xl:-right-24 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded bg-slate-900/60 border border-slate-800/80 hover:border-purple-500/50 hover:bg-slate-800/80 text-slate-400 hover:text-white transition-all backdrop-blur-md hidden lg:flex cursor-pointer shadow-lg"
-                aria-label="Next project"
+                onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+                disabled={page === totalPages - 1}
+                aria-label="Página siguiente"
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                  page === totalPages - 1
+                    ? "text-slate-600 cursor-not-allowed"
+                    : "text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer"
+                }`}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
+                <i className="fa-solid fa-chevron-right text-xs" />
               </button>
-            </>
+            </div>
           )}
-          
-          {/* Header section with Category Filters */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-slate-700/50 pb-5">
-            <div>
-              <h2 className="text-2xl md:text-4xl font-extrabold text-white tracking-tight">
-                {t("projects.title")}
-              </h2>
-              
-              {/* Sub-tabs for Projects (Constant-height wrapper to prevent shifting) */}
-              <div className="flex items-center gap-3 mt-3 h-7">
-                {availableSubTypes.includes("mobile") && (
-                  <button
-                    onClick={() => setSubType("mobile")}
-                    disabled={availableSubTypes.length === 1}
-                    className={`px-4 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all border 
-                      ${availableSubTypes.length === 1 
-                        ? "cursor-default border-slate-700/40 text-slate-400 bg-slate-800/20" 
-                        : (subType === "mobile" 
-                          ? "cursor-pointer bg-purple-500/30 border-purple-500/45 text-purple-200 shadow-sm" 
-                          : "cursor-pointer bg-slate-800/30 border-slate-700/40 text-slate-400 hover:text-slate-200 hover:border-slate-600/50"
-                        )
-                      }
-                    `}
-                  >
-                    {language === "en" ? "Mobile Apps" : "Apps Móviles"}
-                  </button>
-                )}
-                {availableSubTypes.includes("web") && (
-                  <button
-                    onClick={() => setSubType("web")}
-                    disabled={availableSubTypes.length === 1}
-                    className={`px-4 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all border 
-                      ${availableSubTypes.length === 1 
-                        ? "cursor-default border-slate-700/40 text-slate-400 bg-slate-800/20" 
-                        : (subType === "web" 
-                          ? "cursor-pointer bg-purple-500/30 border-purple-500/45 text-purple-200 shadow-sm" 
-                          : "cursor-pointer bg-slate-800/30 border-slate-700/40 text-slate-400 hover:text-slate-200 hover:border-slate-600/50"
-                        )
-                      }
-                    `}
-                  >
-                    {language === "en" ? "Websites" : "Sitios Web"}
-                  </button>
-                )}
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2 flex-none self-start md:self-center">
-              <button 
-                onClick={() => setProjectType("individual")}
-                className={`px-4 py-2 rounded text-xs font-bold transition-all border cursor-pointer
-                  ${projectType === "individual" 
-                    ? "bg-purple-500/30 border-purple-500/40 text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.2)]" 
-                    : "bg-slate-800/40 border-slate-700/40 text-slate-400 hover:text-white hover:border-slate-600/50"
-                  }
-                `}
-              >
-                {t("projects.tabs.individual")}
-              </button>
-              <button 
-                onClick={() => setProjectType("grupal")}
-                className={`px-4 py-2 rounded text-xs font-bold transition-all border cursor-pointer
-                  ${projectType === "grupal" 
-                    ? "bg-teal-500/30 border-teal-500/40 text-teal-200 shadow-[0_0_15px_rgba(20,184,166,0.2)]" 
-                    : "bg-slate-800/40 border-slate-700/40 text-slate-400 hover:text-white hover:border-slate-600/50"
-                  }
-                `}
-              >
-                {t("projects.tabs.grupal")}
-              </button>
-            </div>
-          </div>
-
-          {/* Grid Layout (4 cols text, 8 cols giant screenshot) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center relative min-h-[300px] md:min-h-[420px] lg:min-h-[480px]">
-
-            {/* Left Column: Spacious Product Info (4 cols) */}
-            <div className="lg:col-span-4 flex flex-col justify-center text-left relative z-10">
-              <AnimatePresence mode="wait">
-                {currentProject ? (
-                  <motion.div
-                    key={currentProject.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                  >
-                    {/* Project Title */}
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight leading-tight">
-                      {currentItemInfo.title}
-                    </h3>
-
-                    {/* Tech details subtitle (Larger font size) */}
-                    <div className="text-sm md:text-base text-slate-400 font-mono tracking-wide mb-6">
-                      {currentProject.subtitle}
-                    </div>
-
-                    {/* Project Description (Fixed height to stabilize layout) */}
-                    <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-8 font-light max-w-xl h-24 md:h-20 overflow-y-auto scrollbar-none">
-                      {currentItemInfo.description}
-                    </p>
-
-                    {/* Action buttons */}
-                    <div className="flex flex-wrap items-center gap-3">
-                      <button
-                        onClick={() => handleOpenDetails(currentProject.id)}
-                        className="px-6 py-2.5 bg-slate-800/50 border border-slate-700/60 text-slate-300 hover:bg-slate-700/60 text-xs md:text-sm font-semibold rounded flex items-center gap-2 transition-all shadow-md cursor-pointer"
-                      >
-                        <span>{t("projects.viewDetails")}</span>
-                      </button>
-
-                      <a
-                        href={currentProject.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-6 py-2.5 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-xs md:text-sm font-semibold rounded flex items-center gap-2 transition-all shadow-md hover:shadow-[0_0_15px_rgba(168,85,247,0.2)]"
-                      >
-                        <span>{t("projects.viewProject")}</span>
-                        <i className="fa-solid fa-external-link-alt text-[10px]" />
-                      </a>
-
-                      {/* @ts-ignore */}
-                      {currentProject.github && (
-                        <a
-                          /* @ts-ignore */
-                          href={currentProject.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-4 py-2.5 bg-slate-800/50 border border-slate-700/60 text-slate-300 hover:bg-slate-700/60 hover:text-white text-xs md:text-sm font-semibold rounded flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer"
-                          title="GitHub Repository"
-                        >
-                          <i className="fa-brands fa-github text-lg" />
-                        </a>
-                      )}
-                      
-                      {currentProject.demo && (
-                        <a
-                          href={currentProject.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-6 py-2.5 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-xs md:text-sm font-semibold rounded transition-all border border-slate-700/60 hover:border-slate-500"
-                        >
-                          {t("projects.demoVideo")}
-                        </a>
-                      )}
-                    </div>
-                  </motion.div>
-                ) : (
-                  <div className="text-slate-400 font-light text-sm">
-                    {language === "en" ? "No projects found in this section." : "No se encontraron proyectos en esta sección."}
-                  </div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Right Column: Giant Screenshot Showcase (8 cols) - Balanced Width & Height */}
-            <div className="lg:col-span-8 flex items-center justify-center w-full h-[300px] sm:h-[380px] md:h-[420px] lg:h-[480px] overflow-hidden relative z-10">
-              <AnimatePresence mode="wait">
-                {currentProject && (
-                  <motion.div
-                    key={currentProject.id}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="w-full h-full flex justify-center items-center"
-                  >
-                    {/* Unified widescreen screenshot container (no forced phone shape, no background/border container) */}
-                    <div className="w-full h-full relative overflow-hidden mx-auto">
-                      
-                      {/* Sliding horizontal strip for screenshots */}
-                      <motion.div
-                        className="flex h-full w-full"
-                        animate={{ x: `-${innerImageIndex * 100}%` }}
-                        transition={{ type: "spring", stiffness: 260, damping: 26 }}
-                      >
-                        {currentImages.map((imgUrl, idx) => (
-                          <div key={idx} className="w-full h-full flex-shrink-0 flex items-center justify-center">
-                            <img 
-                              src={imgUrl} 
-                              alt={`${currentItemInfo.title} screenshot ${idx + 1}`} 
-                              className="max-w-full max-h-full object-contain rounded-2xl border border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                            />
-                          </div>
-                        ))}
-                      </motion.div>
-                      
-                      {/* Screenshot Carousel Navigation Controls (Always visible if multiple screenshots exist) */}
-                      {currentImages.length > 1 && (
-                        <>
-                          {/* Left button */}
-                          <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setInnerImageIndex(prev => (prev - 1 + currentImages.length) % currentImages.length);
-                            }}
-                            className={`absolute top-1/2 -translate-y-1/2 p-2 rounded bg-slate-950/75 border border-slate-600/80 text-slate-300 hover:text-white transition-all z-20 cursor-pointer shadow-md hover:bg-slate-900/80
-                              ${isMobileProject 
-                                ? "left-[8%] sm:left-[12%] md:left-[16%] lg:left-[20%] xl:left-[22%]" 
-                                : "left-4 sm:left-6 md:left-8"
-                              }
-                            `}
-                            aria-label="Previous screenshot"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                            </svg>
-                          </button>
-                          
-                          {/* Right button */}
-                          <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setInnerImageIndex(prev => (prev + 1) % currentImages.length);
-                            }}
-                            className={`absolute top-1/2 -translate-y-1/2 p-2 rounded bg-slate-950/75 border border-slate-600/80 text-slate-300 hover:text-white transition-all z-20 cursor-pointer shadow-md hover:bg-slate-900/80
-                              ${isMobileProject 
-                                ? "right-[8%] sm:right-[12%] md:right-[16%] lg:right-[20%] xl:right-[22%]" 
-                                : "right-4 sm:right-6 md:right-8"
-                              }
-                            `}
-                            aria-label="Next screenshot"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                            </svg>
-                          </button>
-                          
-                          {/* Inner Dot Indicators */}
-                          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
-                            {currentImages.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setInnerImageIndex(idx);
-                                }}
-                                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${idx === innerImageIndex ? "bg-white w-3" : "bg-white/40"}`}
-                                aria-label={`Go to screenshot ${idx + 1}`}
-                              />
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-          </div>
-
-          {/* Bottom Pagination controls (Sleek circular dots with active animated sliding spring ring) */}
-          <div className="flex justify-center items-center h-8 mt-6 md:mt-8 z-20 gap-1">
-            {isActive && filteredProjects.length > 1 && filteredProjects.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className="relative flex items-center justify-center w-6 h-6 group cursor-pointer"
-                aria-label={`Go to project slide ${idx + 1}`}
-              >
-                {/* Active animated sliding spring ring */}
-                {idx === currentIndex && (
-                  <motion.span
-                    layoutId="activeProjectIndicator"
-                    className={`absolute inset-0 rounded-full border bg-opacity-10 backdrop-blur-[1px]
-                      ${projectType === "individual"
-                        ? "border-purple-500/50 bg-purple-500/10 shadow-[0_0_8px_rgba(168,85,247,0.25)]"
-                        : "border-teal-500/50 bg-teal-500/10 shadow-[0_0_8px_rgba(20,184,166,0.25)]"
-                      }
-                    `}
-                    transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                  />
-                )}
-                
-                {/* Core pagination dot */}
-                <span
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 z-10
-                    ${idx === currentIndex
-                      ? (projectType === "individual" ? "bg-purple-400 shadow-[0_0_6px_#c084fc] scale-125" : "bg-teal-400 shadow-[0_0_6px_#2dd4bf] scale-125")
-                      : "bg-slate-600/80 group-hover:bg-slate-400 group-hover:scale-125"
-                    }
-                  `}
-                />
-              </button>
-            ))}
-          </div>
-
         </div>
       </div>
-    )}
-  </div>
-);
+
+      {/* Apple.com 2x2 Grid Layout: Exactly 4 projects filling full horizontal width */}
+      <div className="w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3.5 w-full">
+          {currentProjects.map((project) => {
+            const itemInfo = projectItems[project.id] || { title: "", description: "" };
+            return (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                itemInfo={itemInfo}
+                onOpenDetails={(id) => setSelectedProjectId(id)}
+                language={language}
+                t={t}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Modal / Overlay for ProjectDetails */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/85 backdrop-blur-xl p-4 sm:p-6 md:p-10 flex items-center justify-center"
+            onClick={() => setSelectedProjectId(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl relative"
+            >
+              {/* Close Button top-right */}
+              <button
+                onClick={() => setSelectedProjectId(null)}
+                className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/60 flex items-center justify-center transition-all cursor-pointer"
+                aria-label="Cerrar modal"
+              >
+                <i className="fa-solid fa-xmark text-sm" />
+              </button>
+
+              <ProjectDetails
+                project={selectedProject}
+                itemInfo={selectedItemInfo}
+                onBack={() => setSelectedProjectId(null)}
+                isMobileProject={isMobileApp(selectedProject.subtitle)}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
 
 export default Projects;
