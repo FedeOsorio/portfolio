@@ -1,20 +1,22 @@
 "use client";
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import { smoothScrollTo } from "@/utils/scroll";
 
 const Header = () => {
   const { language, setLanguage, t } = useLanguage();
 
   const scrollTo = (id: string) => {
+    if (id === "home") {
+      smoothScrollTo(0, 750);
+      return;
+    }
     const el = document.getElementById(id);
     if (el) {
       const headerOffset = 65;
       const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      const targetY = elementPosition + window.pageYOffset - headerOffset;
+      smoothScrollTo(targetY, 850);
     }
   };
 

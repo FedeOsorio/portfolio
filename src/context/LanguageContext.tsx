@@ -26,7 +26,7 @@ const translations = {
       scrollDown: "Explorar proyectos",
     },
     projects: {
-      title: "Proyectos Destacados",
+      title: "Proyectos",
       viewProject: "Ver Proyecto",
       viewDetails: "Ver Detalle",
       demoVideo: "Demo Video",

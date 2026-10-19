@@ -66,6 +66,7 @@ const projectsData = [
     link: "https://ifts26.netlify.app/",
     subtitle: "Angular",
   },
+  /*
   {
     id: 4,
     type: "grupal",
@@ -90,6 +91,7 @@ const projectsData = [
     link: "https://kirlia-shop.netlify.app/",
     subtitle: "Angular - Express - MongoDB",
   },
+  */
   {
     id: 7,
     type: "grupal",
@@ -137,15 +139,22 @@ const ProjectCard: React.FC<{
 
   return (
     <div className="relative w-full h-[310px] sm:h-[340px] md:h-[370px] lg:h-[395px] rounded-xl md:rounded-2xl overflow-hidden group bg-slate-900 transition-all duration-500 shadow-2xl flex flex-col justify-between p-4 sm:p-5 md:p-6 text-center">
-      {/* Background Image: Maximize 100% of the grid cell without cropping out of bounds */}
+      {/* Background Image: Maximize 100% of the grid cell with smooth cross-fade transition */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
-          src={images[activeImgIndex] || images[0]}
-          alt={`${itemInfo.title} preview`}
-          className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-        />
+        <AnimatePresence mode="sync">
+          <motion.img
+            key={images[activeImgIndex] || images[0]}
+            src={images[activeImgIndex] || images[0]}
+            alt={`${itemInfo.title} preview`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+          />
+        </AnimatePresence>
         {/* Apple-style gradient vignette for clear headline and action button contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/35 to-slate-950/90 group-hover:via-slate-950/25 transition-colors duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/35 to-slate-950/90 group-hover:via-slate-950/25 transition-colors duration-500 pointer-events-none" />
       </div>
 
       {/* Top Header: Category, Title and Subtitle */}
@@ -155,11 +164,7 @@ const ProjectCard: React.FC<{
             ? language === "es"
               ? "App Móvil"
               : "Mobile App"
-            : project.type === "grupal"
-            ? language === "es"
-              ? "Proyecto Grupal"
-              : "Team Project"
-            : "Web / SaaS"}
+            : "Web"}
         </div>
 
         {/* Project Title (Apple headline) */}
@@ -248,15 +253,14 @@ const ProjectCard: React.FC<{
 const Projects: React.FC = () => {
   const { t, language } = useLanguage();
   const projectItems = t("projects.items") as { title: string; description: string }[];
-  const [filter, setFilter] = useState<"all" | "mobile" | "web" | "grupal">("all");
+  const [filter, setFilter] = useState<"all" | "mobile" | "web">("all");
   const [page, setPage] = useState(0);
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
 
   const filteredProjects = projectsData.filter((p) => {
     if (filter === "all") return true;
     if (filter === "mobile") return isMobileApp(p.subtitle);
-    if (filter === "web") return !isMobileApp(p.subtitle) && p.type !== "grupal";
-    if (filter === "grupal") return p.type === "grupal" || p.type === "legacy";
+    if (filter === "web") return !isMobileApp(p.subtitle);
     return true;
   });
 
@@ -326,58 +330,46 @@ const Projects: React.FC = () => {
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              Web / SaaS
-            </button>
-            <button
-              onClick={() => setFilter("grupal")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                filter === "grupal"
-                  ? "bg-purple-500/30 text-purple-200 border border-purple-500/40 shadow-sm"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              {language === "es" ? "Grupales" : "Team"}
+              Web
             </button>
           </div>
 
-          {/* Pagination buttons if more than 4 projects */}
-          {totalPages > 1 && (
-            <div className="flex items-center gap-1.5 bg-slate-900/80 p-1 rounded-full border border-slate-800">
-              <button
-                onClick={() => setPage((p) => Math.max(0, p - 1))}
-                disabled={page === 0}
-                aria-label="Página anterior"
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                  page === 0
-                    ? "text-slate-600 cursor-not-allowed"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer"
-                }`}
-              >
-                <i className="fa-solid fa-chevron-left text-xs" />
-              </button>
-              <span className="text-xs font-mono text-slate-400 px-2">
-                {page + 1}/{totalPages}
-              </span>
-              <button
-                onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-                disabled={page === totalPages - 1}
-                aria-label="Página siguiente"
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                  page === totalPages - 1
-                    ? "text-slate-600 cursor-not-allowed"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer"
-                }`}
-              >
-                <i className="fa-solid fa-chevron-right text-xs" />
-              </button>
-            </div>
-          )}
+          {/* Pagination buttons: always visible */}
+          <div className="flex items-center gap-1.5 bg-slate-900/80 p-1 rounded-full border border-slate-800">
+            <button
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              disabled={page === 0}
+              aria-label="Página anterior"
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                page === 0
+                  ? "text-slate-600 cursor-not-allowed"
+                  : "text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer"
+              }`}
+            >
+              <i className="fa-solid fa-chevron-left text-xs" />
+            </button>
+            <span className="text-xs font-mono text-slate-400 px-2">
+              {page + 1}/{Math.max(1, totalPages)}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(Math.max(1, totalPages) - 1, p + 1))}
+              disabled={page >= totalPages - 1}
+              aria-label="Página siguiente"
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                page >= totalPages - 1
+                  ? "text-slate-600 cursor-not-allowed"
+                  : "text-slate-300 hover:text-white hover:bg-slate-800 cursor-pointer"
+              }`}
+            >
+              <i className="fa-solid fa-chevron-right text-xs" />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Apple.com 2x2 Grid Layout: Exactly 4 projects filling full horizontal width */}
       <div className="w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3.5 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3.5 w-full md:min-h-[754px] lg:min-h-[804px]">
           {currentProjects.map((project) => {
             const itemInfo = projectItems[project.id] || { title: "", description: "" };
             return (
@@ -391,6 +383,14 @@ const Projects: React.FC = () => {
               />
             );
           })}
+          {/* Reserved placeholder slots so 1, 2 or 3 projects do not shrink the 2x2 grid */}
+          {Array.from({ length: Math.max(0, itemsPerPage - currentProjects.length) }).map((_, idx) => (
+            <div
+              key={`empty-slot-${idx}`}
+              aria-hidden="true"
+              className="hidden md:block w-full h-[310px] sm:h-[340px] md:h-[370px] lg:h-[395px] invisible pointer-events-none"
+            />
+          ))}
         </div>
       </div>
 

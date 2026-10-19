@@ -13,7 +13,7 @@ Soy un **desarrollador full-stack** apasionado por crear aplicaciones modernas, 
 
 Mi enfoque es combinar código limpio, buenas prácticas y una excelente experiencia de usuario en cada proyecto que realizo.
 
-## 📱 Proyectos Destacados
+## 📱 Proyectos
 
 ### **Yomi**
 Una aplicación moderna diseñada con privacidad en primer lugar. 
