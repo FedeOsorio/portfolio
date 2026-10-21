@@ -89,16 +89,13 @@ const Main: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col items-center relative">
-      <div className="w-full px-6 md:px-[8.33vw] flex flex-col items-center text-center pt-[80px] pb-8 md:pb-10 relative z-10">
-
-        {/* Hero Section: Centered High-Impact Headline + Dual Interactive Cards + Explore Button */}
+      <div className="w-full px-6 md:px-[8.33vw] flex flex-col items-center text-center pt-[50px] pb-[50px]  relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="w-full flex flex-col items-center gap-8 md:gap-10"
         >
-          {/* Cabecera Central de Alto Impacto (sin badges) */}
           <div className="w-full flex flex-col items-center text-center max-w-4xl mx-auto gap-4 md:gap-5">
             <h1 className="font-graphik text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold text-white tracking-tight leading-[1.12]">
               {language === "es" ? "La solución que imaginas," : "The solution you imagine,"}{" "}
@@ -112,9 +109,7 @@ const Main: React.FC = () => {
             </p>
           </div>
 
-          {/* Dos Tarjetas Gemelas (Dual Cards) */}
           <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 text-left items-stretch">
-            {/* Tarjeta 1: Ingeniería de Software con Tech Stacks con estilo de tarjetas */}
             <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 hover:border-purple-500/40 p-5 sm:p-6 md:p-7 backdrop-blur-xl flex flex-col justify-between shadow-xl transition-all duration-300 gap-4">
               <div className="flex flex-col gap-2">
                 <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-purple-400">
@@ -134,7 +129,6 @@ const Main: React.FC = () => {
                 </p>
               </div>
 
-              {/* Tech Stacks con el mismo estilo de botones de contacto (rounded-xl, bg-slate-950/60, border-slate-800/80) */}
               <div className="flex flex-col gap-3 pt-2">
                 <div className="flex flex-wrap items-center gap-2">
                   {techCategories.map((cat, idx) => (
@@ -189,7 +183,6 @@ const Main: React.FC = () => {
               </div>
             </div>
 
-            {/* Tarjeta 2: Contacto con los botones de links */}
             <div className="rounded-3xl bg-slate-900/60 border border-slate-800/80 hover:border-pink-500/40 p-5 sm:p-6 md:p-7 backdrop-blur-xl flex flex-col justify-between shadow-xl transition-all duration-300 gap-4">
               <div className="flex flex-col gap-2">
                 <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-pink-400">
@@ -209,9 +202,7 @@ const Main: React.FC = () => {
                 </p>
               </div>
 
-              {/* Botones de Links */}
               <div className="flex flex-col gap-1.5">
-                {/* Email con mismo icono que el resto y botón copiar a su izquierda */}
                 <div className="h-[38px] w-full flex items-center justify-between px-3 rounded-xl bg-slate-950/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-purple-500/40 transition-all text-slate-200 hover:text-white group">
                   <a
                     href="https://mail.google.com/mail/?view=cm&fs=1&to=fedee.osorio@gmail.com"
@@ -244,7 +235,6 @@ const Main: React.FC = () => {
                   </div>
                 </div>
 
-                {/* GitHub */}
                 <a
                   href="https://github.com/FedeOsorio"
                   target="_blank"
@@ -258,7 +248,6 @@ const Main: React.FC = () => {
                   <i className="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-500 group-hover:text-slate-300 transition-colors" />
                 </a>
 
-                {/* LinkedIn */}
                 <a
                   href="https://www.linkedin.com/in/fedeosorio/"
                   target="_blank"
@@ -275,7 +264,6 @@ const Main: React.FC = () => {
             </div>
           </div>
 
-          {/* Elemento 3: Explorar Proyectos (con el mismo gap-8 md:gap-10 que los elementos superiores) */}
           <div className="w-full flex justify-center">
             <button
               onClick={scrollToProjects}

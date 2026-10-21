@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface ProjectDetailsProps {
@@ -15,112 +14,99 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, itemInfo, onBa
   const images = project.images || (project.image ? [project.image] : []);
 
   return (
-    <div className="w-full h-full overflow-y-auto overflow-x-hidden relative bg-slate-950/20">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className="w-full min-h-full flex flex-col py-8 px-6 md:px-[8.33vw]"
-      >
-      {/* Top Bar / Breadcrumb */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800/80">
-        <div className="flex items-center gap-3 font-mono text-xs text-slate-400 uppercase tracking-widest">
+    <div className="w-full h-full flex flex-col overflow-hidden bg-slate-900">
+      <div className="w-full flex items-center justify-between py-3.5 px-5 sm:px-8 border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md shrink-0 pr-14 sm:pr-16 z-10">
+        <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs text-slate-400 uppercase tracking-widest overflow-hidden text-ellipsis whitespace-nowrap min-w-0">
           <button 
             onClick={onBack}
-            className="hover:text-purple-400 transition-colors cursor-pointer flex items-center gap-1.5"
+            className="hover:text-purple-400 text-slate-400 transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
           >
-            <i className="fa-solid fa-arrow-left" />
-            {t("projects.details.backButton")}
+            <i className="fa-solid fa-arrow-left text-xs" />
+            <span className="hidden sm:inline">{t("projects.details.backButton")}</span>
           </button>
-          <span>/</span>
-          <span className="text-slate-200">{itemInfo.title}</span>
+          <span className="text-slate-600 hidden sm:inline">/</span>
+          <span className="text-slate-200 font-semibold truncate">{itemInfo.title}</span>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {project.demo && (
             <a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-4 py-1.5 bg-slate-800/50 hover:bg-slate-700/60 text-slate-300 hover:text-white text-[10px] md:text-xs font-semibold rounded transition-all border border-slate-700/60 uppercase tracking-wider"
+              className="flex items-center gap-1.5 h-[36px] px-3.5 bg-slate-950/60 hover:bg-slate-900/90 text-slate-200 hover:text-white text-xs font-semibold rounded-xl transition-all border border-slate-800/80 hover:border-purple-500/50 shadow-sm"
             >
-              <i className="fa-solid fa-video" />
-              {t("projects.demoVideo")}
+              <i className="fa-solid fa-video text-purple-400 text-xs" />
+              <span>{t("projects.demoVideo")}</span>
             </a>
           )}
           <a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-purple-500/30 border border-purple-500/40 text-purple-200 hover:bg-purple-500/40 hover:border-purple-500/60 text-[10px] md:text-xs font-semibold rounded transition-all shadow-md uppercase tracking-wider"
+            className="flex items-center gap-1.5 h-[36px] px-3.5 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/50 hover:border-purple-400 text-purple-200 hover:text-white text-xs font-semibold rounded-xl transition-all shadow-sm"
           >
-            <i className="fa-solid fa-external-link-alt" />
-            {t("projects.viewProject")}
+            <span>{t("projects.viewProject")}</span>
+            <i className="fa-solid fa-arrow-up-right-from-square text-[10px]" />
           </a>
         </div>
       </div>
 
-      {/* Header Section */}
-      <div className="w-full flex flex-col gap-3 py-8">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1]">
-          {itemInfo.title}
-        </h1>
-        <div className="font-mono text-sm md:text-base text-purple-400 tracking-wide">
-          {project.subtitle}
+      <div className="w-full flex-1 overflow-y-auto px-5 sm:px-8 md:px-10 py-6 sm:py-8 flex flex-col gap-8">
+        <div className="w-full flex flex-col gap-2.5">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+            {itemInfo.title}
+          </h1>
+          <div className="font-mono text-xs sm:text-sm text-purple-400 tracking-wide font-medium">
+            {project.subtitle}
+          </div>
+          <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed font-light mt-1">
+            {itemInfo.description}
+          </p>
         </div>
-        <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-light">
-          {itemInfo.description}
-        </p>
-      </div>
 
-      {/* Main Content Layout */}
-      <div className="flex flex-col gap-10 border-t border-slate-800/80 pt-8">
-        
-        {/* Placeholder text blocks for Problem/Solution */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="flex flex-col gap-3">
-            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 pt-4 border-t border-slate-800/80">
+          <div className="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-slate-950/50 border border-slate-800/80">
+            <h3 className="text-xs font-mono text-rose-400 uppercase tracking-widest font-semibold flex items-center gap-2">
+              <i className="fa-solid fa-circle-exclamation text-xs" />
               {t("projects.details.problemTitle")}
             </h3>
-            <p className="text-slate-300 leading-relaxed text-sm md:text-base">
+            <p className="text-slate-300 leading-relaxed text-xs sm:text-sm font-light">
               {itemInfo.problem || "Este proyecto surge como una solución tecnológica para optimizar y modernizar un flujo de trabajo que anteriormente requería procesos manuales extensos o para cubrir una necesidad de mercado específica en su área de aplicación."}
             </p>
           </div>
           
-          <div className="flex flex-col gap-3">
-            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest">
+          <div className="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-slate-950/50 border border-slate-800/80">
+            <h3 className="text-xs font-mono text-teal-400 uppercase tracking-widest font-semibold flex items-center gap-2">
+              <i className="fa-solid fa-circle-check text-xs" />
               {t("projects.details.solutionTitle")}
             </h3>
-            <p className="text-slate-300 leading-relaxed text-sm md:text-base">
+            <p className="text-slate-300 leading-relaxed text-xs sm:text-sm font-light">
               {itemInfo.solution || "Se desarrolló un sistema a medida utilizando las herramientas más adecuadas para garantizar escalabilidad, seguridad y una excelente experiencia de usuario, logrando automatizar y facilitar la operativa diaria."}
             </p>
           </div>
         </div>
 
-        {/* Image Gallery */}
         {images.length > 0 && (
-          <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest">
+          <div className="flex flex-col gap-4 pt-4 border-t border-slate-800/80 pb-6">
+            <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest font-semibold">
               {t("projects.details.galleryTitle")}
             </h3>
-            <div className={`grid gap-6 ${isMobileProject ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1 lg:grid-cols-2"}`}>
+            <div className={`grid gap-4 sm:gap-6 ${isMobileProject ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1 lg:grid-cols-2"}`}>
               {images.map((imgUrl: string, idx: number) => (
-                <div key={idx} className="rounded-xl overflow-hidden border border-slate-800/80 shadow-lg bg-slate-900/50 flex items-center justify-center p-2">
+                <div key={idx} className="rounded-2xl overflow-hidden border border-slate-800/80 shadow-xl bg-slate-950/60 flex items-center justify-center p-3 hover:border-slate-700 transition-colors">
                   <img 
                     src={imgUrl} 
                     alt={`${itemInfo.title} screenshot ${idx + 1}`} 
-                    className="max-h-[500px] w-auto object-contain rounded-lg"
+                    className="max-h-[460px] w-auto object-contain rounded-xl shadow-md"
+                    loading="lazy"
                   />
                 </div>
               ))}
             </div>
           </div>
         )}
-        
       </div>
-      </motion.div>
     </div>
   );
 };

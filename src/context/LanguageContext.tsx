@@ -97,6 +97,18 @@ const translations = {
           description: "SaaS B2B de Gestión Inmobiliaria con arquitectura multi-tenant. Incluye manejo de propiedades, contratos inteligentes, pagos automatizados y un Agente de IA integrado con la API de Meta para envíos de WhatsApp y avisos de mora.",
           problem: "Las agencias inmobiliarias y propietarios independientes a menudo carecen de sistemas centralizados para gestionar contratos, inquilinos y cobros, llevando a procesos manuales y propensos a errores.",
           solution: "A.S.T.A. Rental ofrece una solución integral segura que automatiza el seguimiento de pagos y generación de contratos. Su diferencial es el Agente IA que automatiza la comunicación con inquilinos vía WhatsApp (Meta API) para cobranzas y avisos de mora."
+        },
+        {
+          title: "Yomi",
+          description: "Sistema inteligente de repetición espaciada (SRS) y flashcards para idiomas con algoritmo FSRS y reconocimiento de voz offline con IA.",
+          problem: "Anki y las aplicaciones tradicionales de flashcards sufren de interfaces anticuadas, algoritmos de repaso rígidos (SM-2 de hace más de 30 años) que provocan sobrecarga de estudio, y carecen de práctica oral fonética integrada sin depender de internet o servidores externos.",
+          solution: "Yomi moderniza el aprendizaje de idiomas combinando el algoritmo cognitivo FSRS (Free Spaced Repetition Scheduler) con un motor de reconocimiento de voz on-device con IA (Sherpa-ONNX: ReazonSpeech para japonés y SenseVoice para chino/inglés). Funciona 100% offline y con privacidad local-first mediante SQLite y Drizzle ORM, incorporando diccionarios completos (JMdict, KANJIDIC2, CC-CEDICT) e importador nativo de mazos de Anki."
+        },
+        {
+          title: "Dollar API",
+          description: "Microservicio de alto rendimiento en Java 21 para cotizaciones en tiempo real del dólar argentino (Oficial, Blue, MEP, CCL, Tarjeta, Cripto).",
+          problem: "Las cotizaciones cambiarias en Argentina son altamente volátiles y las APIs upstream suelen sufrir caídas, cuotas estrictas de consultas o latencias impredecibles, comprometiendo a plataformas que dependen de cotizaciones en tiempo real.",
+          solution: "Se desarrolló un microservicio resiliente con Java 21 y Spring Boot con Circuit Breaker (Resilience4j), reintentos exponenciales automáticos, caché distribuida en Redis con fallback a memoria local, telemetría de salud y un motor de Chaos Testing para simular fallos y garantizar máxima tolerancia a caídas."
         }
       ]
     },
@@ -188,6 +200,18 @@ const translations = {
           description: "B2B SaaS Property Management Platform featuring multi-tenant architecture, smart contracts, automated payments, and an AI Agent integrated with Meta API for WhatsApp messaging and late fee notices.",
           problem: "Real estate agencies and independent landlords often lack centralized systems to manage contracts, renters, and collections, leading to manual and error-prone processes.",
           solution: "A.S.T.A. Rental provides a secure, comprehensive solution that automates payment tracking and contract generation. Its core feature is an AI Agent that automates tenant communications via WhatsApp (Meta API) for collections and late fee notices."
+        },
+        {
+          title: "Yomi",
+          description: "Smart spaced repetition flashcard system (SRS) for language learning powered by the FSRS algorithm and on-device offline voice AI recognition.",
+          problem: "Traditional flashcard applications like Anki suffer from outdated interfaces, rigid scheduling algorithms (30-year-old SM-2) leading to review fatigue, and a complete lack of integrated offline phonetic speech evaluation.",
+          solution: "Yomi modernizes language acquisition by pairing the advanced FSRS (Free Spaced Repetition Scheduler) cognitive algorithm with on-device speech recognition via Sherpa-ONNX (ReazonSpeech for Japanese, SenseVoice for Chinese/English). Built with a 100% offline, local-first architecture using SQLite and Drizzle ORM, it features rich integrated dictionaries (JMdict, KANJIDIC2, CC-CEDICT) and a native Anki deck importer."
+        },
+        {
+          title: "Dollar API",
+          description: "High-performance microservice providing live Argentine Dollar exchange rates (Oficial, Blue, MEP, CCL, Tarjeta, Cripto). Features Resilience4j Circuit Breaker, Automatic Exponential Retry, Redis Caching with In-Memory Fallback, and Chaos Testing Engine.",
+          problem: "Argentine currency exchange rates are highly volatile and upstream market data APIs frequently suffer from downtime, rate limits, or unpredictable latency spikes, disrupting dependent fintech applications.",
+          solution: "Engineered a resilient Java 21 & Spring Boot microservice integrating Resilience4j Circuit Breaker, automatic exponential retries, distributed Redis caching with in-memory fallback, live telemetry endpoints, and a Chaos Simulation Engine to stress-test and guarantee zero-downtime tolerance."
         }
       ]
     },
@@ -199,7 +223,6 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>("es");
 
-  // Load language from sessionStorage or fallback to browser system language preference on mount
   useEffect(() => {
     const savedLanguage = sessionStorage.getItem("portfolio-language") as Language;
     if (savedLanguage && (savedLanguage === "es" || savedLanguage === "en")) {
@@ -217,7 +240,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  // Save language to sessionStorage whenever it changes
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
     sessionStorage.setItem("portfolio-language", lang);
